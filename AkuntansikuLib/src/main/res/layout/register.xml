@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/custom_toolbar"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+                <include layout="@layout/alert_danger"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/padding_triple"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/lato_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Data Pengguna"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding"
+                    android:padding="@dimen/padding"
+                    android:background="@drawable/button_primary_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/lato"
+                            android:textColor="@color/colorBlackTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Lengkap"/>
+                        <EditText
+                            android:id="@+id/t_name"
+                            android:fontFamily="@font/lato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/lato"
+                            android:textColor="@color/colorBlackTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Email"/>
+                        <EditText
+                            android:inputType="textEmailAddress"
+                            android:id="@+id/t_email"
+                            android:fontFamily="@font/lato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/lato"
+                            android:textColor="@color/colorBlackTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Password"/>
+                        <EditText
+                            android:inputType="textPassword"
+                            android:id="@+id/t_password"
+                            android:fontFamily="@font/lato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/padding_triple"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/lato_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Data Perusahaan"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding"
+                    android:padding="@dimen/padding"
+                    android:background="@drawable/button_primary_outline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/lato"
+                            android:textColor="@color/colorBlackTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nama Perusahaan"/>
+                        <EditText
+                            android:inputType="textEmailAddress"
+                            android:id="@+id/t_company_name"
+                            android:fontFamily="@font/lato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="Mata Uang" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <Spinner
+                                android:id="@+id/s_currency"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:background="@drawable/button_primary_outline" />
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/padding"
+                                android:src="@drawable/bottom_green" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="Zona Waktu" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <Spinner
+                                android:id="@+id/s_time_zone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:background="@drawable/button_primary_outline" />
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/padding"
+                                android:src="@drawable/bottom_green" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:fontFamily="@font/lato"
+                            android:textColor="@color/colorBlackTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat"/>
+                        <EditText
+                            android:gravity="top|left"
+                            android:inputType="textMultiLine"
+                            android:lines="3"
+                            android:id="@+id/t_address"
+                            android:fontFamily="@font/lato"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:elevation="0dp"
+                            android:id="@+id/b_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="DAFTAR"
+                            app:fontFamily="@font/montserrat_bold"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/button_primary"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:indeterminateTint="@color/colorWhite"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding_separuh"
+                        android:id="@+id/p_login"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rel_loading"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_centerInParent="true"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+</RelativeLayout>

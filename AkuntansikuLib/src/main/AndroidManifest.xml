@@ -1,0 +1,61 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="id.co.akuntansiku">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".accounting.AccountingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".accounting.Account.Account"
+            android:label="Daftar Akun"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".accounting.transaction.TransactionAdd"
+            android:label="Tambah Transaksi"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".accounting.transaction.TransactionDetail"
+            android:label="Detail Transaksi"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".master_data.contact.ContactActivity"
+            android:label="Kontak"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".master_data.contact.ContactAdd"
+            android:label="Tambah Kontak"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".master_data.contact.ContactDetail"
+            android:label="Detail Kontak"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".user.Login"
+            android:label="Login"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".setting.company.CompanyActivity"
+            android:label="Perusahaan"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".setting.SettingActivity"
+            android:label="Pengaturan"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.Webview"
+            android:theme="@style/AppTheme.NoActionBar" />
+    </application>
+</manifest>

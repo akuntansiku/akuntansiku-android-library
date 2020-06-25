@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="padding_separuh">8dp</dimen>
+    <dimen name="padding_triple">24dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="icon">26dp</dimen>
+    <dimen name="icon_menu">50dp</dimen>
+    <dimen name="titleSize">16sp</dimen>
+    <dimen name="gambar_barang">50dp</dimen>
+</resources>

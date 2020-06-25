@@ -1,0 +1,3 @@
+include ':AkuntansikuLib'
+include ':app'
+rootProject.name = "Akuntansiku-Android-Library"

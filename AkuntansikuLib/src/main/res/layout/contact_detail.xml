@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/custom_toolbar"/>
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="@dimen/padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Email"/>
+                <TextView
+                    android:id="@+id/t_email"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"/>
+                <TextView
+                    android:id="@+id/t_name"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat"/>
+                <TextView
+                    android:id="@+id/t_address"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No HP"/>
+                <TextView
+                    android:id="@+id/t_no_hp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan"/>
+                <TextView
+                    android:id="@+id/t_note"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem Ipsum Dolor Amet"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:padding="@dimen/padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginRight="@dimen/padding_separuh"
+            android:id="@+id/b_delete"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_danger"
+            android:text="Hapus"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:layout_marginLeft="@dimen/padding_separuh"
+            android:id="@+id/b_edit"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_primary"
+            android:text="Edit"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+</LinearLayout>

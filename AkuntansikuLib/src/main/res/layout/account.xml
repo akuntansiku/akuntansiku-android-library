@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/custom_toolbar"/>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_margin="@dimen/padding"
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Data Kosong" />
+        <LinearLayout
+            android:visibility="gone"
+            android:background="@color/colorGrey"
+            android:id="@+id/layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/padding"
+                android:background="@drawable/button_white"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/cari_barang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_white"
+                    android:hint="Cari Akun"
+                    android:inputType="text"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingTop="5dp"
+                    android:textSize="16dp" />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/hapus_text"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/backspace" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ListView
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
+            android:id="@+id/list_cashbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:layout_below="@+id/layout"/>
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorWhite">
+            <Button
+                android:fontFamily="@font/ubuntu_bold"
+                android:id="@+id/addCashBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_separuh"
+                android:background="@drawable/button_primary"
+                android:text="Tambahkan Akun"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

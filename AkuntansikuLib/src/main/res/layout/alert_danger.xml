@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/a_danger"
+        android:background="@drawable/alert_danger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding">
+
+        <TextView
+            android:id="@+id/t_a_danger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error Message"
+            android:textColor="@color/colorRed"
+            app:fontFamily="@font/ubuntu_bold" />
+    </LinearLayout>
+</LinearLayout>
