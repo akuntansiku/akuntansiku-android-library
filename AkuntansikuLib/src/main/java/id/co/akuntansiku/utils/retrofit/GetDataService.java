@@ -11,13 +11,13 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface GetDataService {
-    @POST("/akuntansiku_oauth/token")
+    @POST("/oauth/token")
     @FormUrlEncoded
     Call<ResponseBody> getToken(@Field("username") String username, @Field("password") String password, @Field("grant_type") String grant_type,
                             @Field("client_id") String client_id, @Field("client_secret") String client_secret,
                             @Field("scope") String scope);
 
-    @POST("/akuntansiku_oauth/token")
+    @POST("/oauth/token")
     @FormUrlEncoded
     Call<ResponseBody> refreshToken(@Field("grant_type") String grant_type,
                                 @Field("client_id") String client_id, @Field("client_secret") String client_secret,
