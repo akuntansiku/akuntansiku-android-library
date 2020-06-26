@@ -39,7 +39,7 @@ public class CompanyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.company);
+        setContentView(R.layout.akuntansiku_company);
         rel_loading = findViewById(R.id.rel_loading);
         rel_loading.setVisibility(View.VISIBLE);
         recyclerView = findViewById(R.id.r_company);
@@ -71,7 +71,7 @@ public class CompanyActivity extends AppCompatActivity {
                         ApiResponse res = response.body();
                         if (res.getStatus().equals("success")){
                             Gson gson = new Gson();
-                            ArrayList<DataCompany> my_compnay = gson.fromJson(res.getData().getString("company"), new TypeToken<List<DataCompany>>(){}.getType());
+                            ArrayList<DataCompany> my_compnay = gson.fromJson(res.getData().getString("akuntansiku_company"), new TypeToken<List<DataCompany>>(){}.getType());
                             ArrayList<DataCompany> another_compnay = gson.fromJson(res.getData().getString("another_company"), new TypeToken<List<DataCompany>>(){}.getType());
                             ArrayList<DataCompany> dataCompanies = new ArrayList<>();
                             dataCompanies.addAll(my_compnay);

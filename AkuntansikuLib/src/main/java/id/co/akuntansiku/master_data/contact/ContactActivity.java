@@ -44,7 +44,7 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.contact_activity);
+        setContentView(R.layout.akuntansiku_contact_activity);
         recyclerView = findViewById(R.id.r_contact);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);

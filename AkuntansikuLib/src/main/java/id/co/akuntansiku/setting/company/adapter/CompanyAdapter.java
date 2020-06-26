@@ -47,7 +47,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.adapter_company, parent, false);
+        View view = mInflater.inflate(R.layout.akuntansiku_adapter_company, parent, false);
         return new ViewHolder(view);
     }
 
@@ -148,7 +148,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                             editor.putBoolean(Config.IS_LOGIN, true);
                             editor.apply();
 
-                            CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("company").getString("currency"));
+                            CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("akuntansiku_company").getString("currency"));
                             Intent intent = new Intent(context, AccountingActivity.class);
                             context.startActivity(intent);
                             context.finish();

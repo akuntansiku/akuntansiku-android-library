@@ -1,16 +1,11 @@
 package id.co.akuntansiku.utils;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,7 +19,7 @@ public class Webview extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.webview);
+        setContentView(R.layout.akuntansiku_webview);
         myWebView = (WebView) findViewById(R.id.web_view);
         myWebView.setWebViewClient(new WebViewClient(){
             @Override
@@ -33,7 +28,7 @@ public class Webview extends AppCompatActivity {
                         || "http://akuntansiku.co.id/account/transaction".equals(url)) {
                     if ("http://akuntansiku.co.id/account/transaction".equals(url)){
                         CustomToast customToast = new CustomToast();
-                        customToast.success(Webview.this, "Berhasil daftar akun silahkan login", Gravity.TOP);
+                        customToast.success(Webview.this, "Berhasil daftar akun silahkan akuntansiku_login", Gravity.TOP);
                     }
                     return false;
                 }

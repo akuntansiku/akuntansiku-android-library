@@ -65,7 +65,7 @@ public class TransactionAdd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_add);
+        setContentView(R.layout.akuntansiku_transaction_add);
         rel_loading = findViewById(R.id.rel_loading);
         rel_loading.setVisibility(View.VISIBLE);
         t_a_danger = findViewById(R.id.t_a_danger);
@@ -181,8 +181,8 @@ public class TransactionAdd extends AppCompatActivity {
     }
 
     private void setAdapterCategory() {
-        ArrayAdapter aa = new ArrayAdapter(this, R.layout.spinner_item, category);
-        aa.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter aa = new ArrayAdapter(this, R.layout.akuntansiku_spinner_item, category);
+        aa.setDropDownViewResource(R.layout.akuntansiku_spinner_item);
         spinnerCategory.setAdapter(aa);
         spinnerCategory.setSelection(2);
 
@@ -209,8 +209,8 @@ public class TransactionAdd extends AppCompatActivity {
         this.debit = cashbox_dari;
         this.credit = cashbox_ke;
 
-        SpinnerCashboxAdapter aaCashboxDari = new SpinnerCashboxAdapter(this, R.layout.spinner_item, cashbox_dari);
-        SpinnerCashboxAdapter aaCashboxKe = new SpinnerCashboxAdapter(this, R.layout.spinner_item, cashbox_ke);
+        SpinnerCashboxAdapter aaCashboxDari = new SpinnerCashboxAdapter(this, R.layout.akuntansiku_spinner_item, cashbox_dari);
+        SpinnerCashboxAdapter aaCashboxKe = new SpinnerCashboxAdapter(this, R.layout.akuntansiku_spinner_item, cashbox_ke);
 
         spinnerDebit.setAdapter(aaCashboxDari);
         spinnerCredit.setAdapter(aaCashboxKe);
@@ -401,7 +401,7 @@ public class TransactionAdd extends AppCompatActivity {
                         if (res.getStatus().equals("success")) {
                             rel_loading.setVisibility(View.GONE);
                             Gson gson = new Gson();
-                            dataAccounts = gson.fromJson(res.getData().getString("account"), new TypeToken<List<DataAccount>>() {
+                            dataAccounts = gson.fromJson(res.getData().getString("akuntansiku_account"), new TypeToken<List<DataAccount>>() {
                             }.getType());
 
                             dataTransactionModes = gson.fromJson(res.getData().getString("transaction_mode"), new TypeToken<List<DataTransactionMode>>() {

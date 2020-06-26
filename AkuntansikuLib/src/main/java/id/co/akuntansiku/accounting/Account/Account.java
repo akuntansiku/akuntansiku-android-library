@@ -53,7 +53,7 @@ public class Account extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account);
+        setContentView(R.layout.akuntansiku_account);
 
         Button addCashBox = findViewById(R.id.addCashBox);
         lv = findViewById(R.id.list_cashbox);
@@ -142,7 +142,7 @@ public class Account extends AppCompatActivity {
         final AlertDialog.Builder dialognya = new AlertDialog.Builder(this);
         final AlertDialog alert = dialognya.create();
         LayoutInflater li = LayoutInflater.from(this);
-        View inputnya = li.inflate(R.layout.dialog_cashbox_add, null);
+        View inputnya = li.inflate(R.layout.akuntansiku_dialog_cashbox_add, null);
         final Button btnTidak = (Button) inputnya.findViewById(R.id.batal);
         final Button btnYa = (Button) inputnya.findViewById(R.id.lanjut);
         final EditText namaCashbox = (EditText) inputnya.findViewById(R.id.editNamaCashBox);
@@ -156,10 +156,10 @@ public class Account extends AppCompatActivity {
         }
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.akuntansiku_spinner_item, categories);
 
         // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(R.layout.spinner_item);
+        dataAdapter.setDropDownViewResource(R.layout.akuntansiku_spinner_item);
 
         // attaching data adapter to spinner
         spiner.setAdapter(dataAdapter);
@@ -226,10 +226,10 @@ public class Account extends AppCompatActivity {
         if (data_cashbox.size() == 0) {
             ArrayList<DataNotifikasi> newsNotif = new ArrayList<DataNotifikasi>();
             newsNotif.add(new DataNotifikasi(0, "Tidak Ada Akun"));
-            NotifikasiAccountAdapter adapter = new NotifikasiAccountAdapter(this, R.layout.adapter_notification, newsNotif);
+            NotifikasiAccountAdapter adapter = new NotifikasiAccountAdapter(this, R.layout.akuntansiku_adapter_notification, newsNotif);
             lv.setAdapter(adapter);
         } else {
-            adapter = new AccountAdapter(this, R.layout.adapter_account, dataAccounts, dataCategories, categories);
+            adapter = new AccountAdapter(this, R.layout.akuntansiku_adapter_account, dataAccounts, dataCategories, categories);
             lv.setAdapter(adapter);
         }
     }
@@ -262,7 +262,7 @@ public class Account extends AppCompatActivity {
                         ApiResponse res = response.body();
                         if (res.getStatus().equals("success")) {
                             Gson gson = new Gson();
-                            dataAccounts = gson.fromJson(res.getData().getString("account"), new TypeToken<List<DataAccount>>() {
+                            dataAccounts = gson.fromJson(res.getData().getString("akuntansiku_account"), new TypeToken<List<DataAccount>>() {
                             }.getType());
                             dataCategories = gson.fromJson(res.getData().getString("category"), new TypeToken<List<DataCategory>>() {
                             }.getType());

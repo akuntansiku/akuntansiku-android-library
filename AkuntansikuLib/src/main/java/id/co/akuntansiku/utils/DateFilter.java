@@ -44,7 +44,7 @@ public class DateFilter {
 //        dataDateFilter.add(new DataDateFilter(0, "Selama ini", "0", "1"));
 //        dataDateFilter.add(new DataDateFilter(7, "Custom", " ", " "));
 
-        dateFilterAdapter = new DateFilterAdapter(activity, R.layout.spinner_date, dataDateFilter);
+        dateFilterAdapter = new DateFilterAdapter(activity, R.layout.akuntansiku_spinner_date, dataDateFilter);
         spinner.setAdapter(dateFilterAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

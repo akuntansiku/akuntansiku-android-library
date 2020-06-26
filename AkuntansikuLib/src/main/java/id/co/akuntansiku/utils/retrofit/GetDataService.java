@@ -11,13 +11,13 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface GetDataService {
-    @POST("/oauth/token")
+    @POST("/akuntansiku_oauth/token")
     @FormUrlEncoded
     Call<ResponseBody> getToken(@Field("username") String username, @Field("password") String password, @Field("grant_type") String grant_type,
                             @Field("client_id") String client_id, @Field("client_secret") String client_secret,
                             @Field("scope") String scope);
 
-    @POST("/oauth/token")
+    @POST("/akuntansiku_oauth/token")
     @FormUrlEncoded
     Call<ResponseBody> refreshToken(@Field("grant_type") String grant_type,
                                 @Field("client_id") String client_id, @Field("client_secret") String client_secret,
@@ -59,7 +59,7 @@ public interface GetDataService {
     Call<ResponseBody> akunCreate(@Field("nama") String nama, @Field("kode") String kode,
                                   @Field("kategori") String kategori, @Field("saldo") String saldo);
 
-    @POST("/api/account/get_all")
+    @POST("/api/akuntansiku_account/get_all")
     Call<ApiResponse> account_get_all();
 
     @POST("/api/category/get_all")
@@ -100,16 +100,16 @@ public interface GetDataService {
     @POST("/api/profile/get")
     Call<ApiResponse> profile_get();
 
-    @POST("/api/company/get")
+    @POST("/api/akuntansiku_company/get")
     Call<ApiResponse> company_get();
 
-    @POST("/api/company/add")
+    @POST("/api/akuntansiku_company/add")
     @FormUrlEncoded
     Call<ApiResponse> company_add(@Field("name") String name, @Field("currency") String currency,
                                   @Field("time_zone_id") int time_zone_id, @Field("time_zone_value") int time_zone_value,
                                   @Field("address") String address);
 
-    @POST("/api/company/get_currency_and_time_zone")
+    @POST("/api/akuntansiku_company/get_currency_and_time_zone")
     Call<ApiResponse> get_currency_and_time_zone();
 
     @POST("/api/employee/all")
@@ -132,7 +132,7 @@ public interface GetDataService {
     Call<ApiResponse> employee_update(@Field("email") String email, @Field("role") String role);
 
 
-    @POST("/api/company/switch")
+    @POST("/api/akuntansiku_company/switch")
     @FormUrlEncoded
     Call<ApiResponse> company_switch(@Field("id_company") int id_company);
 
@@ -191,7 +191,7 @@ public interface GetDataService {
     @GET("/api/kpi/sync/get_status_user")
     Call<ResponseBody> getStatusUser();
 
-    @GET("/api/kpi/account/trial")
+    @GET("/api/kpi/akuntansiku_account/trial")
     Call<ResponseBody> trial();
 
 }

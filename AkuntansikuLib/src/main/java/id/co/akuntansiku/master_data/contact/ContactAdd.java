@@ -26,7 +26,7 @@ public class ContactAdd extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.contact_add);
+        setContentView(R.layout.akuntansiku_contact_add);
         e_email = findViewById(R.id.e_email);
         e_name = findViewById(R.id.e_name);
         e_address = findViewById(R.id.e_address);

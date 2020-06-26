@@ -14,7 +14,7 @@ public class ComingSoon extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.coming_soon);
+        setContentView(R.layout.akuntansiku_coming_soon);
         LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
         TextView text_toolbar = findViewById(R.id.text_toolbar);
 

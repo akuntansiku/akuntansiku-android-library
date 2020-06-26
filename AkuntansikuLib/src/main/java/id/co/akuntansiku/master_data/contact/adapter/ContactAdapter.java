@@ -30,10 +30,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (is_loading){
-            View view = mInflater.inflate(R.layout.adapter_contact_loading, parent, false);
+            View view = mInflater.inflate(R.layout.akuntansiku_adapter_contact_loading, parent, false);
             return new ViewHolder(view);
         }else {
-            View view = mInflater.inflate(R.layout.adapter_contact, parent, false);
+            View view = mInflater.inflate(R.layout.akuntansiku_adapter_contact, parent, false);
             return new ViewHolder(view);
         }
 

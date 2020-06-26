@@ -5,21 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -35,25 +28,19 @@ import java.util.Iterator;
 import java.util.List;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.Account;
 import id.co.akuntansiku.accounting.transaction.TransactionAdd;
 import id.co.akuntansiku.accounting.transaction.TransactionDetail;
 import id.co.akuntansiku.accounting.transaction.adapter.TransactionAdapter;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
-import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.setting.SettingActivity;
-import id.co.akuntansiku.user.Login;
 import id.co.akuntansiku.utils.Config;
-import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.DateFilter;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
-
-import static android.app.Activity.RESULT_OK;
 
 public class AccountingActivity extends AppCompatActivity {
     ArrayList<DataTransaction> dataTransactions = new ArrayList<>();
@@ -69,7 +56,7 @@ public class AccountingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_accounting);
+        setContentView(R.layout.akuntansiku_fragment_accounting);
         l_back = findViewById(R.id.l_back);
         l_back.setOnClickListener(new View.OnClickListener() {
             @Override

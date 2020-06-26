@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/custom_toolbar"/>
+    <include layout="@layout/akuntansiku_custom_toolbar"/>
     <ScrollView
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -21,66 +21,9 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Transaksi"/>
+                    android:text="Email"/>
                 <TextView
-                    android:id="@+id/t_transaction_mode"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="General"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginBottom="@dimen/padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:fontFamily="@font/ubuntu_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tanggal"/>
-                <TextView
-                    android:id="@+id/t_date"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="10 September 2020"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginBottom="@dimen/padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:fontFamily="@font/ubuntu_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Jumlah"/>
-                <TextView
-                    android:id="@+id/t_nominal"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack"
-                    android:fontFamily="@font/ubuntu_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rp 20000"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginBottom="@dimen/padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:fontFamily="@font/ubuntu_regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Kontak"/>
-                <TextView
-                    android:id="@+id/t_contact_name"
+                    android:id="@+id/t_email"
                     android:textSize="18sp"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/ubuntu_medium"
@@ -97,9 +40,9 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Jatuh Tempo"/>
+                    android:text="Nama"/>
                 <TextView
-                    android:id="@+id/t_due_date"
+                    android:id="@+id/t_name"
                     android:textSize="18sp"
                     android:textColor="@color/colorBlack"
                     android:fontFamily="@font/ubuntu_medium"
@@ -116,7 +59,45 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Catatan"/>
+                    android:text="Alamat"/>
+                <TextView
+                    android:id="@+id/t_address"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No HP"/>
+                <TextView
+                    android:id="@+id/t_no_hp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan"/>
                 <TextView
                     android:id="@+id/t_note"
                     android:textSize="18sp"
@@ -124,11 +105,12 @@
                     android:fontFamily="@font/ubuntu_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""/>
+                    android:text="Lorem Ipsum Dolor Amet"/>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:padding="@dimen/padding"
         android:layout_width="match_parent"

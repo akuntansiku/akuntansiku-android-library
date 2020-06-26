@@ -33,7 +33,7 @@ public class ContactDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.contact_detail);
+        setContentView(R.layout.akuntansiku_contact_detail);
         t_email = findViewById(R.id.t_email);
         t_name = findViewById(R.id.t_name);
         t_address = findViewById(R.id.t_address);

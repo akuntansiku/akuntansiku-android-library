@@ -41,10 +41,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (is_loading){
-            View view = mInflater.inflate(R.layout.adapter_transaction_loading, parent, false);
+            View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction_loading, parent, false);
             return new ViewHolder(view);
         }else {
-            View view = mInflater.inflate(R.layout.adapter_transaction, parent, false);
+            View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction, parent, false);
             return new ViewHolder(view);
         }
     }

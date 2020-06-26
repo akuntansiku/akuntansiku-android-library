@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/custom_toolbar"/>
+        <include layout="@layout/akuntansiku_custom_toolbar"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Buat Perusahaan Anda"/>
 
-            <include layout="@layout/alert_danger"/>
+            <include layout="@layout/akuntansiku_alert_danger"/>
             <LinearLayout
                 android:layout_marginTop="@dimen/padding"
                 android:orientation="vertical"

@@ -49,7 +49,7 @@ public class Akuntansiku {
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < journals.size(); i++) {
                 if (!journal_check.isNull(journals.get(i).getCode())) {
-                    Log.e("akuntansiku", "[akuntansiku] There is the same account code");
+                    Log.e("akuntansiku", "[akuntansiku] There is the same akuntansiku_account code");
                     return;
                 }
                 JSONObject journal = new JSONObject();

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <include layout="@layout/custom_toolbar"/>
+    <include layout="@layout/akuntansiku_custom_toolbar"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

@@ -38,7 +38,7 @@ public class TransactionDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.transaction_detail);
+        setContentView(R.layout.akuntansiku_transaction_detail);
         t_transaction_mode = findViewById(R.id.t_transaction_mode);
         t_date = findViewById(R.id.t_date);
         t_nominal = findViewById(R.id.t_nominal);

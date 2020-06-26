@@ -20,7 +20,7 @@ public class CustomToast {
     public void warning(Activity context, String kata, int position) {
         try {
             LayoutInflater inflater = context.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
+            View layout = inflater.inflate(R.layout.akuntansiku_custom_toast,
                     (ViewGroup) context.findViewById(R.id.custom_toast_container));
             LinearLayout background = (LinearLayout) layout.findViewById(R.id.back);
             background.setBackgroundColor(context.getResources().getColor(R.color.colorYellow));
@@ -39,7 +39,7 @@ public class CustomToast {
     public void warning_long(Activity context, String kata, int position){
         try {
             LayoutInflater inflater = context.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
+            View layout = inflater.inflate(R.layout.akuntansiku_custom_toast,
                     (ViewGroup) context.findViewById(R.id.custom_toast_container));
             LinearLayout background = (LinearLayout) layout.findViewById(R.id.back);
             background.setBackgroundColor(context.getResources().getColor(R.color.colorYellow));
@@ -58,7 +58,7 @@ public class CustomToast {
     public void danger(Activity context, String kata, int position) {
         try {
             LayoutInflater inflater = context.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
+            View layout = inflater.inflate(R.layout.akuntansiku_custom_toast,
                     (ViewGroup) context.findViewById(R.id.custom_toast_container));
             LinearLayout background = (LinearLayout) layout.findViewById(R.id.back);
             background.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
@@ -77,7 +77,7 @@ public class CustomToast {
     public void success(Activity context, String kata, int position) {
         try {
             LayoutInflater inflater = context.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
+            View layout = inflater.inflate(R.layout.akuntansiku_custom_toast,
                     (ViewGroup) context.findViewById(R.id.custom_toast_container));
             LinearLayout background = (LinearLayout) layout.findViewById(R.id.back);
             background.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
@@ -96,7 +96,7 @@ public class CustomToast {
     public void warningCenter(Activity context, String kata, int position) {
         try {
             LayoutInflater inflater = context.getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast_activity,
+            View layout = inflater.inflate(R.layout.akuntansiku_custom_toast_activity,
                     (ViewGroup) context.findViewById(R.id.custom_toast_container));
             LinearLayout background = (LinearLayout) layout.findViewById(R.id.back);
             background.setBackgroundColor(context.getResources().getColor(R.color.colorYellow));

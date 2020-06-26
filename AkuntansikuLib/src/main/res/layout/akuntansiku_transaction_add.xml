@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/custom_toolbar"/>
+        <include layout="@layout/akuntansiku_custom_toolbar"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -305,7 +305,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/padding"
             android:paddingRight="@dimen/padding">
-            <include layout="@layout/alert_danger"/>
+            <include layout="@layout/akuntansiku_alert_danger"/>
         </LinearLayout>
 
 

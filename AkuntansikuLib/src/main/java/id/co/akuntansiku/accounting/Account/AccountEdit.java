@@ -2,11 +2,7 @@ package id.co.akuntansiku.accounting.Account;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,16 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.utils.CustomToast;
-import id.co.akuntansiku.utils.retrofit.GetDataService;
-import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
-import okhttp3.ResponseBody;
 
 public class AccountEdit extends AppCompatActivity {
     EditText nama_akun;
@@ -39,7 +29,7 @@ public class AccountEdit extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_edit);
+        setContentView(R.layout.akuntansiku_account_edit);
 
         nama_akun = (EditText) findViewById(R.id.nama_akun);
 
@@ -83,7 +73,7 @@ public class AccountEdit extends AppCompatActivity {
         final AlertDialog.Builder dialognya = new AlertDialog.Builder(this);
         final AlertDialog alert = dialognya.create();
         LayoutInflater li = LayoutInflater.from(this);
-        View inputnya = li.inflate(R.layout.dialog_sesuaikan_saldo, null);
+        View inputnya = li.inflate(R.layout.akuntansiku_dialog_sesuaikan_saldo, null);
         final Button btnTidak = (Button) inputnya.findViewById(R.id.batal);
         final Button btnYa = (Button) inputnya.findViewById(R.id.lanjut);
         final EditText nominal = (EditText) inputnya.findViewById(R.id.editNominal);

@@ -40,7 +40,7 @@ public class CompanyAdd extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.company_add);
+        setContentView(R.layout.akuntansiku_company_add);
         t_name = findViewById(R.id.t_name);
         t_address = findViewById(R.id.t_address);
 
@@ -131,7 +131,7 @@ public class CompanyAdd extends AppCompatActivity {
                             dataCurrencies.addAll(currency_tmp);
 
                             rel_loading.setVisibility(View.GONE);
-                            CurrencyAdapter adapter = new CurrencyAdapter(CompanyAdd.this, R.layout.adapter_currency, dataCurrencies);
+                            CurrencyAdapter adapter = new CurrencyAdapter(CompanyAdd.this, R.layout.akuntansiku_adapter_currency, dataCurrencies);
                             Spinner s = (Spinner) findViewById(R.id.s_currency);
                             s.setAdapter(adapter);
                             s.setSelection(0);
