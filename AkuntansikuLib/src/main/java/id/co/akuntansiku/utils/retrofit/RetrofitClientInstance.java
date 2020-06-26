@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 import java.io.IOException;
 
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -19,7 +19,7 @@ public class RetrofitClientInstance {
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance(Activity context) {
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -31,7 +31,7 @@ public class RetrofitClientInstance {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/x-www-form-urlencoded")
-                        .header("Authorization", sharedPreferences.getString(Config.API_TOKEN_TYPE, "null") + " " + sharedPreferences.getString(Config.API_TOKEN, "null"))
+                        .header("Authorization", sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN_TYPE, "null") + " " + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, "null"))
                         .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
@@ -50,7 +50,7 @@ public class RetrofitClientInstance {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Config.BASE_URL)
+                    .baseUrl(ConfigAkuntansiku.AKUNTANSIKU_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

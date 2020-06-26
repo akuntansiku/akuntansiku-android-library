@@ -21,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.CurrencyFormater;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
@@ -81,8 +81,8 @@ public class TransactionDetail extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferences.getString(Config.USER_ROLE, "viewer").equals("viewer")){
+        SharedPreferences sharedPreferences = getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, "viewer").equals("viewer")){
             b_delete.setVisibility(View.GONE);
             b_edit.setVisibility(View.GONE);
         }

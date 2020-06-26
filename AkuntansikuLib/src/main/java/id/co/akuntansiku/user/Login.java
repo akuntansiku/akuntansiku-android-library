@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.setting.company.CompanyActivity;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.Webview;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
@@ -79,15 +79,15 @@ public class Login extends AppCompatActivity {
     private void get_token() {
         p_login.setVisibility(View.VISIBLE);
         l_danger.setVisibility(View.GONE);
-        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
         retrofit2.Call<ResponseBody> call = service.getToken(
                 t_email.getText().toString(),
                 t_password.getText().toString(),
-                sharedPreferences.getString(Config.GRANT_TYPE, ""),
-                sharedPreferences.getString(Config.CLIENT_ID, ""),
-                sharedPreferences.getString(Config.CLIENT_SECRET, ""),
-                sharedPreferences.getString(Config.SCOPE, "")
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_GRANT_TYPE, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_SCOPE, "")
         );
 
 
@@ -102,12 +102,12 @@ public class Login extends AppCompatActivity {
                         return;
                     }else if (response.code() == 200) {
                         String res = response.body().string();
-                        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         JSONObject jsonObject = new JSONObject(res);
-                        editor.putString(Config.API_TOKEN_TYPE, jsonObject.getString("token_type"));
-                        editor.putString(Config.API_TOKEN, jsonObject.getString("access_token"));
-                        editor.putString(Config.API_REFRESH_TOKEN, jsonObject.getString("refresh_token"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN_TYPE, jsonObject.getString("token_type"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, jsonObject.getString("access_token"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_REFRESH_TOKEN, jsonObject.getString("refresh_token"));
                         editor.apply();
 
                         profile_get();
@@ -144,21 +144,21 @@ public class Login extends AppCompatActivity {
                     if (response.code() == 200) {
                         ApiResponse res = response.body();
                         if (res.getStatus().equals("success")) {
-                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = Login.this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
                             JSONObject user = res.getData().getJSONObject("user");
                             String database_name = "AKUNTANSIKU_" + user.getInt("id");
 
-                            editor.putInt(Config.USER_ID, user.getInt("id"));
-                            editor.putString(Config.DATABASE_NAME, database_name);
-                            editor.putString(Config.USER_NAME, user.getString("name"));
-                            editor.putString(Config.USER_EMAIL, user.getString("email"));
-                            editor.putString(Config.USER_ROLE, user.getString("role_web"));
+                            editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_ID, user.getInt("id"));
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_DATABASE_NAME, database_name);
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_NAME, user.getString("name"));
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, user.getString("email"));
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, user.getString("role_web"));
                             if (res.getData().getJSONObject("user").isNull("default_company_web"))
-                                editor.putInt(Config.USER_DEFAULT_COMPANY_WEB, -1);
+                                editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, -1);
                             else
-                                editor.putInt(Config.USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
+                                editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
 
                             ModelAllTable db = new ModelAllTable(Login.this, database_name);
                             db.getWritableDatabase();

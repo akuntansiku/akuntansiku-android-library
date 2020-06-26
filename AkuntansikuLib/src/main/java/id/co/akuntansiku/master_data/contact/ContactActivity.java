@@ -25,7 +25,7 @@ import java.util.List;
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.master_data.contact.adapter.ContactAdapter;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
@@ -65,8 +65,8 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferences.getString(Config.USER_ROLE, "admin").equals("viewer")){
+        SharedPreferences sharedPreferences = getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, "admin").equals("viewer")){
             b_add_contact.setVisibility(View.GONE);
         }
 

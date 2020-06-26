@@ -35,7 +35,7 @@ import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
 import id.co.akuntansiku.setting.SettingActivity;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.DateFilter;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
@@ -81,8 +81,8 @@ public class AccountingActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferences.getString(Config.USER_ROLE, "admin").equals("viewer")){
+        SharedPreferences sharedPreferences = getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, "admin").equals("viewer")){
             b_accounting_add.setVisibility(View.GONE);
         }
 
@@ -189,8 +189,8 @@ public class AccountingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (!sharedPreferences.getBoolean(Config.IS_LOGIN, false)) {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
             finish();
         }
     }

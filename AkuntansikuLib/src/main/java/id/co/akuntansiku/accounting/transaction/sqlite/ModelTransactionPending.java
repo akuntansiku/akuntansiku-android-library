@@ -2,7 +2,6 @@ package id.co.akuntansiku.accounting.transaction.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,13 +13,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
-import id.co.akuntansiku.user.Login;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.Helper;
 
 public class ModelTransactionPending extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = Config.DATABASE_VERSION;
+    private static final int DATABASE_VERSION = ConfigAkuntansiku.AKUNTANSIKU_DATABASE_VERSION;
     private String TABLE_NAME = "model_transaction_pending";
     private Context context;
     private static ModelTransactionPending sInstance;

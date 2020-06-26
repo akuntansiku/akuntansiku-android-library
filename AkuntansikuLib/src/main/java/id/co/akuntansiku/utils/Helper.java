@@ -1,11 +1,8 @@
 package id.co.akuntansiku.utils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.view.View;
 
 
 import org.json.JSONObject;
@@ -18,7 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
-import id.co.akuntansiku.user.Login;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import okhttp3.ResponseBody;
@@ -70,9 +66,9 @@ public class Helper {
     }
 
     public static void forceLogout(Activity activity){
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Config.IS_LOGIN, false);
+        editor.putBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false);
         editor.apply();
     }
 
@@ -134,8 +130,8 @@ public class Helper {
     }
 
     public static String getDatabaseName(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(Config.DATABASE_NAME, "AKUNTANSIKU");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_DATABASE_NAME, "AKUNTANSIKU");
     }
 
     public interface RefreshTokenListener {
@@ -146,14 +142,14 @@ public class Helper {
 
     public void refreshToken(final Activity activity, final RefreshTokenListener listener){
         this.listener = listener;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         GetDataService service = RetrofitClientInstance.getRetrofitInstance(activity).create(GetDataService.class);
         retrofit2.Call<ResponseBody> call = service.refreshToken(
                 "refresh_token",
-                sharedPreferences.getString(Config.CLIENT_ID, ""),
-                sharedPreferences.getString(Config.CLIENT_SECRET, ""),
-                sharedPreferences.getString(Config.SCOPE, ""),
-                sharedPreferences.getString(Config.API_REFRESH_TOKEN, "")
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_SCOPE, ""),
+                sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_REFRESH_TOKEN, "")
         );
 
         call.enqueue(new retrofit2.Callback<ResponseBody>() {
@@ -164,12 +160,12 @@ public class Helper {
                         listener.onCallback(false);
                     }else if (response.code() == 200) {
                         String res = response.body().string();
-                        SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         JSONObject jsonObject = new JSONObject(res);
-                        editor.putString(Config.API_TOKEN_TYPE, jsonObject.getString("token_type"));
-                        editor.putString(Config.API_TOKEN, jsonObject.getString("access_token"));
-                        editor.putString(Config.API_REFRESH_TOKEN, jsonObject.getString("refresh_token"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN_TYPE, jsonObject.getString("token_type"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, jsonObject.getString("access_token"));
+                        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_REFRESH_TOKEN, jsonObject.getString("refresh_token"));
                         editor.apply();
                         listener.onCallback(true);
                     }

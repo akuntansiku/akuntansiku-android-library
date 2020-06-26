@@ -71,7 +71,7 @@ public class CompanyActivity extends AppCompatActivity {
                         ApiResponse res = response.body();
                         if (res.getStatus().equals("success")){
                             Gson gson = new Gson();
-                            ArrayList<DataCompany> my_compnay = gson.fromJson(res.getData().getString("akuntansiku_company"), new TypeToken<List<DataCompany>>(){}.getType());
+                            ArrayList<DataCompany> my_compnay = gson.fromJson(res.getData().getString("company"), new TypeToken<List<DataCompany>>(){}.getType());
                             ArrayList<DataCompany> another_compnay = gson.fromJson(res.getData().getString("another_company"), new TypeToken<List<DataCompany>>(){}.getType());
                             ArrayList<DataCompany> dataCompanies = new ArrayList<>();
                             dataCompanies.addAll(my_compnay);

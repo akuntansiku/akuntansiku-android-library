@@ -59,7 +59,7 @@ public interface GetDataService {
     Call<ResponseBody> akunCreate(@Field("nama") String nama, @Field("kode") String kode,
                                   @Field("kategori") String kategori, @Field("saldo") String saldo);
 
-    @POST("/api/akuntansiku_account/get_all")
+    @POST("/api/account/get_all")
     Call<ApiResponse> account_get_all();
 
     @POST("/api/category/get_all")
@@ -100,16 +100,16 @@ public interface GetDataService {
     @POST("/api/profile/get")
     Call<ApiResponse> profile_get();
 
-    @POST("/api/akuntansiku_company/get")
+    @POST("/api/company/get")
     Call<ApiResponse> company_get();
 
-    @POST("/api/akuntansiku_company/add")
+    @POST("/api/company/add")
     @FormUrlEncoded
     Call<ApiResponse> company_add(@Field("name") String name, @Field("currency") String currency,
                                   @Field("time_zone_id") int time_zone_id, @Field("time_zone_value") int time_zone_value,
                                   @Field("address") String address);
 
-    @POST("/api/akuntansiku_company/get_currency_and_time_zone")
+    @POST("/api/company/get_currency_and_time_zone")
     Call<ApiResponse> get_currency_and_time_zone();
 
     @POST("/api/employee/all")
@@ -132,7 +132,7 @@ public interface GetDataService {
     Call<ApiResponse> employee_update(@Field("email") String email, @Field("role") String role);
 
 
-    @POST("/api/akuntansiku_company/switch")
+    @POST("/api/company/switch")
     @FormUrlEncoded
     Call<ApiResponse> company_switch(@Field("id_company") int id_company);
 
@@ -166,10 +166,6 @@ public interface GetDataService {
     @GET("/api/kpi/discount/get_all")
     Call<ResponseBody> discountGetAll();
 
-//    @POST("/api/kpi/discount/push")
-//    @FormUrlEncoded
-//    Call<ResponseBody> pushDiscount(@Field("discount") String discount);
-
     //Pajak
     @GET("/api/kpi/tax/get_all")
     Call<ResponseBody> taxGetAll();
@@ -191,7 +187,7 @@ public interface GetDataService {
     @GET("/api/kpi/sync/get_status_user")
     Call<ResponseBody> getStatusUser();
 
-    @GET("/api/kpi/akuntansiku_account/trial")
+    @GET("/api/kpi/account/trial")
     Call<ResponseBody> trial();
 
 }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.setting.company.model.DataCompany;
-import id.co.akuntansiku.utils.Config;
+import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.CurrencyFormater;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
@@ -58,8 +58,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         try {
             if (!mData.get(position).getList_user().equals("") && !mData.get(position).getList_user().equals("NULL")) {
                 try {
-                    SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-                    String email = sharedPreferences.getString(Config.USER_EMAIL, "");
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+                    String email = sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "");
                     JSONArray jsonArray = new JSONArray(mData.get(position).getList_user());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -83,8 +83,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
             }
         });
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferences.getInt(Config.USER_DEFAULT_COMPANY_WEB, 0) == mData.get(position).getId()) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, 0) == mData.get(position).getId()) {
             holder.i_check.setVisibility(View.VISIBLE);
         }
     }
@@ -141,14 +141,14 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                     if (response.code() == 200) {
                         ApiResponse res = response.body();
                         if (res.getStatus().equals("success")) {
-                            SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt(Config.USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
-                            editor.putString(Config.USER_ROLE, res.getData().getJSONObject("user").getString("role_web"));
-                            editor.putBoolean(Config.IS_LOGIN, true);
+                            editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, res.getData().getJSONObject("user").getString("role_web"));
+                            editor.putBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, true);
                             editor.apply();
 
-                            CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("akuntansiku_company").getString("currency"));
+                            CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("company").getString("currency"));
                             Intent intent = new Intent(context, AccountingActivity.class);
                             context.startActivity(intent);
                             context.finish();

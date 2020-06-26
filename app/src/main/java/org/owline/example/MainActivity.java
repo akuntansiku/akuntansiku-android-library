@@ -10,11 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import id.co.akuntansiku.SplashScreen;
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.Akuntansiku;
-import id.co.akuntansiku.utils.Config;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -28,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tambah();
-                Intent intent = new Intent(MainActivity.this, SplashScreen.class);
-                startActivity(intent);
+                Akuntansiku.lauch(MainActivity.this);
             }
         });
     }
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         data_journal.add(new DataTransaction.Journal("1-10703", 0.0, 10000.0));
         data_journal.add(new DataTransaction.Journal("1-10502", 10000.0, 0.0));
 
-        Akuntansiku.addTransaction(this, dataContact, created_at, "", Config.PENJUALAN_KASIR_PINTAR, "cash", "", "", false, "", "", data_journal );
+        Akuntansiku.addTransaction(this, dataContact, created_at, "", Akuntansiku.PENJUALAN_KASIR_PINTAR, "cash", "", "", false, "", "", data_journal );
     }
 
     @Override

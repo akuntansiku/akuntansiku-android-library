@@ -2,14 +2,17 @@ package id.co.akuntansiku.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Gravity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
@@ -17,27 +20,46 @@ import id.co.akuntansiku.user.Login;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
+import id.co.akuntansiku.utils.sqlite.ModelAllTable;
 
 public class Akuntansiku {
     public static void initialization(Activity activity, String client_id, String client_secret) {
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Config.CLIENT_ID, client_id);
-        editor.putString(Config.CLIENT_SECRET, client_secret);
-        editor.putString(Config.GRANT_TYPE, "password");
-        editor.putString(Config.SCOPE, "*");
+        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, client_id);
+        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, client_secret);
+        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_GRANT_TYPE, "password");
+        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SCOPE, "*");
         editor.apply();
+    }
+
+    public static void lauch(Activity activity){
+        SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID,"").equals("")
+        || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET,"").equals("")){
+            throw new RuntimeException("You haven't entered client_id and client_secret yet");
+        }
+        if (sharedPreferencess.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
+            String database_name = sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_DATABASE_NAME, "AKUNTANSIKU");
+            ModelAllTable db = new ModelAllTable(activity, database_name);
+            db.getWritableDatabase();
+            Intent i = new Intent(activity, AccountingActivity.class);
+            activity.startActivity(i);
+        } else {
+            Intent i = new Intent(activity, Login.class);
+            activity.startActivity(i);
+        }
     }
 
     public static void addTransaction(Activity context, DataContact dataContact, String created_at, String note, int mode, String payment_method,
                                       String tag, String cost_number, boolean is_draft, String due_date, String parent_code, ArrayList<DataTransaction.Journal> journals) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (!sharedPreferences.getBoolean(Config.IS_LOGIN, false))
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
             return;
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
 
         String code = created_at.replaceAll(" ", "").replaceAll("-", "").replaceAll(":", "");
-        int user_id = sharedPreferences.getInt(Config.USER_ID, 0);
+        int user_id = sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_ID, 0);
         String date = created_at;
         if (created_at.length() == 19)
             date = date + ":000";
@@ -78,7 +100,7 @@ public class Akuntansiku {
             data_transaction.put("note", note);
             data_transaction.put("user_id", user_id);
             data_transaction.put("created_at", date);
-            data_transaction.put("app_source", Config.CLIENT_ID);
+            data_transaction.put("app_source", ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID);
             data_transaction.put("payment_method", payment_method);
             data_transaction.put("tag", tag);
             data_transaction.put("cost_number", cost_number);
@@ -97,8 +119,8 @@ public class Akuntansiku {
     }
 
     public static void resendData(final Activity context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (!sharedPreferences.getBoolean(Config.IS_LOGIN, false))
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
             return;
         GetDataService service = RetrofitClientInstance.getRetrofitInstance(context).create(GetDataService.class);
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
@@ -131,4 +153,19 @@ public class Akuntansiku {
             }
         });
     }
+
+    public static final Integer GENERAL = -1;
+    public static final Integer PEMASUKAN = 0;
+    public static final Integer PENGELUARAN = 1;
+    public static final Integer HUTANG = 2;
+    public static final Integer PIUTANG = 3;
+    public static final Integer TANAM_MODAL = 4;
+    public static final Integer TARIK_MODAL = 5;
+    public static final Integer TRANSFER_UANG = 6;
+    public static final Integer PEMBAYARAN_HUTANG = 7;
+    public static final Integer PEMBAYARAN_PIUTANG = 8;
+    public static final Integer PEMBELIAN_KASIR_PINTAR = 9;
+    public static final Integer PENJUALAN_KASIR_PINTAR = 10;
+    public static final Integer HUTANG_KASIR_PINTAR = 11;
+    public static final Integer PIUTANG_KASIR_PINTAR = 12;
 }

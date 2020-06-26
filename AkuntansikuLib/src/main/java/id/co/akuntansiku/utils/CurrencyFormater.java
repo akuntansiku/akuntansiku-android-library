@@ -53,12 +53,12 @@ public class CurrencyFormater {
 
     public static String cur(Context x, Double s) {
         Locale local = x.getResources().getConfiguration().locale;
-        SharedPreferences sharedPreferences = x.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferences.getString(Config.SETTING_CURRENCY, "").equals("")) {
+        SharedPreferences sharedPreferences = x.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY, "").equals("")) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(Config.SETTING_CURRENCY, Utils.getCurrencySymbol(Currency.getInstance(local).getCurrencyCode()));
-            editor.putString(Config.SETTING_CURRENCY_COUNTRY, x.getResources().getConfiguration().locale.getDisplayCountry());
-            editor.putString(Config.SETTING_CURRENCY_CODE, Currency.getInstance(local).getCurrencyCode());
+            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY, Utils.getCurrencySymbol(Currency.getInstance(local).getCurrencyCode()));
+            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY_COUNTRY, x.getResources().getConfiguration().locale.getDisplayCountry());
+            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY_CODE, Currency.getInstance(local).getCurrencyCode());
             editor.apply();
         }
 
@@ -75,7 +75,7 @@ public class CurrencyFormater {
         formatter.setParseIntegerOnly(true);
         String formatted = formatter.format((parsed));
 
-        return sharedPreferences.getString(Config.SETTING_CURRENCY, "")+" "+formatted;
+        return sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY, "")+" "+formatted;
     }
 
 
@@ -98,11 +98,11 @@ public class CurrencyFormater {
             currency.addAll(currency_tmp);
             for (int i = 0; i < currency.size(); i++){
                 if (currency.get(i).getCode().equals(currency_code)){
-                    SharedPreferences sharedPreferences = x.getSharedPreferences(Config.SHARED_KEY, Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = x.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Config.SETTING_CURRENCY, currency.get(i).getSymbol_native());
-                    editor.putString(Config.SETTING_CURRENCY_COUNTRY, currency.get(i).getName());
-                    editor.putString(Config.SETTING_CURRENCY_CODE, currency.get(i).getCode());
+                    editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY, currency.get(i).getSymbol_native());
+                    editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY_COUNTRY, currency.get(i).getName());
+                    editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SETTING_CURRENCY_CODE, currency.get(i).getCode());
                     editor.apply();
                     break;
                 }
