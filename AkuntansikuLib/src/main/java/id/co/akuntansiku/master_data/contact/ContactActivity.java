@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,16 +20,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.master_data.contact.adapter.ContactAdapter;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
+import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class ContactActivity extends AppCompatActivity {
@@ -92,52 +99,37 @@ public class ContactActivity extends AppCompatActivity {
         adapter = new ContactAdapter(ContactActivity.this, dataContacts, true);
         recyclerView.setAdapter(adapter);
 
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.contact_get_all();
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).contact_get_all();
+        RetrofitSend.sendData(this, false, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")) {
-                            Gson gson = new Gson();
-                            dataContacts.clear();
-                            dataContacts = gson.fromJson(res.getData().getString("contact"), new TypeToken<List<DataContact>>() {
-                            }.getType());
-                            adapter = new ContactAdapter(ContactActivity.this, dataContacts, false);
-                            adapter.setClickListener(new ContactAdapter.ItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-                                    if (key.equals("from_transaction_add")) {
-                                        Intent returnIntent = new Intent();
-                                        returnIntent.putExtra("id_contact",dataContacts.get(position).getId());
-                                        returnIntent.putExtra("name_contact",dataContacts.get(position).getName());
-                                        setResult(Activity.RESULT_OK,returnIntent);
-                                        finish();
-                                    } else {
-                                        Intent intent = new Intent(ContactActivity.this, ContactDetail.class);
-                                        intent.putExtra("contact_id", dataContacts.get(position).getId());
-                                        startActivityForResult(intent, DETAIL_CONTACT);
-                                    }
-
-                                }
-                            });
-                            recyclerView.setAdapter(adapter);
-                        } else if (res.getStatus().equals("error")) {
-
+            public void onSuccess(JSONObject data) throws JSONException {
+                Gson gson = new Gson();
+                dataContacts.clear();
+                dataContacts = gson.fromJson(data.getString("contact"), new TypeToken<List<DataContact>>() {
+                }.getType());
+                adapter = new ContactAdapter(ContactActivity.this, dataContacts, false);
+                adapter.setClickListener(new ContactAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (key.equals("from_transaction_add")) {
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("id_contact",dataContacts.get(position).getId());
+                            returnIntent.putExtra("name_contact",dataContacts.get(position).getName());
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
+                        } else {
+                            Intent intent = new Intent(ContactActivity.this, ContactDetail.class);
+                            intent.putExtra("contact_id", dataContacts.get(position).getId());
+                            startActivityForResult(intent, DETAIL_CONTACT);
                         }
-                    } else if (response.code() == 401) {
-                        Helper.forceLogout(ContactActivity.this);
+
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                });
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
+            public void onError(ApiResponse.Meta meta) {
 
             }
         });

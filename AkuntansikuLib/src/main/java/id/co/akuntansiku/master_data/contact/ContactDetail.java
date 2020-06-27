@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -18,11 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
+import id.co.akuntansiku.utils.CustomToast;
+import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 
@@ -133,30 +141,17 @@ public class ContactDetail extends AppCompatActivity {
     }
 
     private void contact_delete(int contact_id) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.contact_delete(contact_id);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).contact_delete(contact_id);
+        RetrofitSend.sendData(this, false, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK,returnIntent);
-                            finish();
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
+            public void onError(ApiResponse.Meta meta) {
 
             }
         });

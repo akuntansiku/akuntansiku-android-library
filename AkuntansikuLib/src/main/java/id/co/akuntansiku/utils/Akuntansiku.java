@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import id.co.akuntansiku.accounting.AccountingActivity;
+import id.co.akuntansiku.accounting.transaction.TransactionAdd;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
@@ -141,6 +142,16 @@ public class Akuntansiku {
                         } else if (res.getStatus().equals("error")) {
 
                         }
+                    }else if (response.code() == 401){
+                        Helper helper = new Helper();
+                        helper.refreshToken(context, new Helper.RefreshTokenListener() {
+                            @Override
+                            public void onCallback(boolean success) {
+                                if (!success) {
+                                    Helper.forceLogout(context);
+                                }
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

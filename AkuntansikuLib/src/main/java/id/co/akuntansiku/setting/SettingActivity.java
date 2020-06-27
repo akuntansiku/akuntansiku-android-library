@@ -1,5 +1,6 @@
 package id.co.akuntansiku.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.setting.profile.Profile;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
@@ -23,6 +25,15 @@ public class SettingActivity extends AppCompatActivity {
 
         setContentView(R.layout.akuntansiku_fragment_setting);
 
+        LinearLayout l_profile = findViewById(R.id.l_profile);
+        l_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingActivity.this, Profile.class);
+                startActivity(i);
+            }
+        });
+
         LinearLayout l_logout = findViewById(R.id.l_log_out);
         l_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +47,7 @@ public class SettingActivity extends AppCompatActivity {
         LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
         TextView text_toolbar = findViewById(R.id.text_toolbar);
 
-        text_toolbar.setText("");
+        text_toolbar.setText("Pengaturan");
         button_toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

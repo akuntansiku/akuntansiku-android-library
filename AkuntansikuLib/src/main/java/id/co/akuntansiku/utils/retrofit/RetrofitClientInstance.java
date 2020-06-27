@@ -20,10 +20,7 @@ public class RetrofitClientInstance {
 
     public static Retrofit getRetrofitInstance(Activity context) {
         final SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
-
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
-
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {

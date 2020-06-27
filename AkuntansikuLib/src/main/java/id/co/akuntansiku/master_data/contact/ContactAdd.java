@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +15,16 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.AccountingActivity;
+import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 
@@ -54,8 +61,7 @@ public class ContactAdd extends AppCompatActivity {
     }
 
     private void contact_add(){
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.contact_add(
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).contact_add(
                 e_email.getText().toString(),
                 e_name.getText().toString(),
                 e_address.getText().toString(),
@@ -63,39 +69,17 @@ public class ContactAdd extends AppCompatActivity {
                 e_note.getText().toString()
         );
 
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK,returnIntent);
-                            finish();
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }else if (response.code() == 401){
-                        Helper.forceLogout(ContactAdd.this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(ContactAdd.this).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+            public void onError(ApiResponse.Meta meta) {
+
             }
         });
     }

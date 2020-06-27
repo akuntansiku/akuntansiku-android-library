@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,14 +20,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.CurrencyFormater;
+import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 
@@ -34,11 +42,14 @@ public class TransactionDetail extends AppCompatActivity {
     TextView t_transaction_mode, t_date, t_nominal, t_contact_name, t_due_date, t_note;
     DataContact dataContact;
     Button b_delete, b_edit;
+    RelativeLayout rel_loading;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.akuntansiku_transaction_detail);
+        rel_loading = findViewById(R.id.rel_loading);
+        rel_loading.setVisibility(View.VISIBLE);
         t_transaction_mode = findViewById(R.id.t_transaction_mode);
         t_date = findViewById(R.id.t_date);
         t_nominal = findViewById(R.id.t_nominal);
@@ -108,114 +119,53 @@ public class TransactionDetail extends AppCompatActivity {
     }
 
     private void get_transaction_detail(String code) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.transaction_detail(code);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).transaction_detail(code);
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            Gson gson = new Gson();
-                            dataTransaction = gson.fromJson(res.getData().getString("transaction"), new TypeToken<DataTransaction>(){}.getType());
-                            set_text();
-                            get_contact_detail(dataTransaction.getContact_id());
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }else if (response.code() == 401){
-                        Helper.forceLogout(TransactionDetail.this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                rel_loading.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                dataTransaction = gson.fromJson(data.getString("transaction"), new TypeToken<DataTransaction>(){}.getType());
+                set_text();
+                get_contact_detail(dataTransaction.getContact_id());
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(TransactionDetail.this).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+            public void onError(ApiResponse.Meta meta) {
+
             }
         });
     }
 
     private void get_contact_detail(int contact_id) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.contact_get_detail(contact_id);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).contact_get_detail(contact_id);
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            Gson gson = new Gson();
-                            dataContact = gson.fromJson(res.getData().getString("contact"), new TypeToken<DataContact>(){}.getType());
-                            //t_contact_name.setText(dataContact.getName());
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                Gson gson = new Gson();
+                dataContact = gson.fromJson(data.getString("contact"), new TypeToken<DataContact>(){}.getType());
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
+            public void onError(ApiResponse.Meta meta) {
 
             }
         });
     }
 
     private void transaction_delete(String code) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.transaction_delete(code);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).transaction_delete(code);
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK,returnIntent);
-                            finish();
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }else if (response.code() == 401){
-                        Helper.forceLogout(TransactionDetail.this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(TransactionDetail.this).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+            public void onError(ApiResponse.Meta meta) {
+
             }
         });
     }

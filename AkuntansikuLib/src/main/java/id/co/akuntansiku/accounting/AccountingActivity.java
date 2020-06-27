@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -36,10 +38,12 @@ import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
 import id.co.akuntansiku.setting.SettingActivity;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
+import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.DateFilter;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class AccountingActivity extends AppCompatActivity {
@@ -119,52 +123,38 @@ public class AccountingActivity extends AppCompatActivity {
         transactionAdapter = new TransactionAdapter(AccountingActivity.this, dataTransactions, transactionMode, true);
         recyclerView.setAdapter(transactionAdapter);
 
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(AccountingActivity.this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.transaction_get_day_filter(from, to);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).transaction_get_day_filter(from, to);
+        RetrofitSend.sendData(this, false, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")){
-                            JSONObject issueObj = res.getData().getJSONObject("transaction_mode");
-                            Iterator iterator = issueObj.keys();
-                            while(iterator.hasNext()){
-                                String key = (String)iterator.next();
-                                String value = issueObj.getString(key);
-                                transactionMode[Integer.parseInt(key)+1] = value;
-                            }
-                            dataTransactions.clear();
-                            Gson gson = new Gson();
-                            dataTransactions = gson.fromJson(res.getData().getString("transaction"), new TypeToken<List<DataTransaction>>(){}.getType());
-                            transactionAdapter = new TransactionAdapter(AccountingActivity.this, dataTransactions, transactionMode, false);
-                            transactionAdapter.setClickListener(new TransactionAdapter.ItemClickListener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-                                    Intent intent = new Intent(AccountingActivity.this, TransactionDetail.class);
-                                    intent.putExtra("code", dataTransactions.get(position).getCode());
-                                    startActivityForResult(intent, DETAIL_TRANSACTION);
-                                }
-                            });
-                            if (dataTransactions.size() == 0)
-                                t_empty.setVisibility(View.VISIBLE);
-                            else t_empty.setVisibility(View.GONE);
-                            recyclerView.setAdapter(transactionAdapter);
-                        }else if (res.getStatus().equals("error")){
-
-                        }
-                    }else if (response.code() == 401){
-                        Helper.forceLogout(AccountingActivity.this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onSuccess(JSONObject data) throws JSONException {
+                JSONObject issueObj = data.getJSONObject("transaction_mode");
+                Iterator iterator = issueObj.keys();
+                while(iterator.hasNext()){
+                    String key = (String)iterator.next();
+                    String value = issueObj.getString(key);
+                    transactionMode[Integer.parseInt(key)+1] = value;
                 }
+                dataTransactions.clear();
+                Gson gson = new Gson();
+                dataTransactions = gson.fromJson(data.getString("transaction"), new TypeToken<List<DataTransaction>>(){}.getType());
+                transactionAdapter = new TransactionAdapter(AccountingActivity.this, dataTransactions, transactionMode, false);
+                transactionAdapter.setClickListener(new TransactionAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(AccountingActivity.this, TransactionDetail.class);
+                        intent.putExtra("code", dataTransactions.get(position).getCode());
+                        startActivityForResult(intent, DETAIL_TRANSACTION);
+                    }
+                });
+                if (dataTransactions.size() == 0)
+                    t_empty.setVisibility(View.VISIBLE);
+                else t_empty.setVisibility(View.GONE);
+                recyclerView.setAdapter(transactionAdapter);
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
+            public void onError(ApiResponse.Meta data) {
+
             }
         });
     }

@@ -1,7 +1,10 @@
 package id.co.akuntansiku.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 
@@ -14,9 +17,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 import okhttp3.ResponseBody;
 
 public class Helper {
@@ -167,7 +172,7 @@ public class Helper {
                         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, jsonObject.getString("access_token"));
                         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_API_REFRESH_TOKEN, jsonObject.getString("refresh_token"));
                         editor.apply();
-                        listener.onCallback(true);
+                        company_switch(activity, sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, 0));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -176,6 +181,44 @@ public class Helper {
 
             @Override
             public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void company_switch(final Activity activity, int id_company) {
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance(activity).create(GetDataService.class);
+        retrofit2.Call<ApiResponse> call = service.company_switch(id_company);
+
+        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
+                try {
+                    if (response.code() == 200) {
+                        ApiResponse res = response.body();
+                        if (res.getStatus().equals("success")) {
+                            SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
+                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, res.getData().getJSONObject("user").getString("role_web"));
+                            editor.putBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, true);
+                            editor.apply();
+
+                            CurrencyFormater.changeCurrency(activity, res.getData().getJSONObject("company").getString("currency"));
+                            listener.onCallback(true);
+                        } else if (res.getStatus().equals("error")) {
+                            listener.onCallback(false);
+                        }
+                    }if (response.code() == 401){
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
 
             }
         });

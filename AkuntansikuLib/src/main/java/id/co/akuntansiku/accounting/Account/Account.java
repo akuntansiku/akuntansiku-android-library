@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,10 @@ import id.co.akuntansiku.accounting.Account.adapter.NotifikasiAccountAdapter;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.Account.model.DataCategory;
 import id.co.akuntansiku.accounting.Account.model.DataNotifikasi;
+import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.utils.ComingSoon;
+import id.co.akuntansiku.utils.CustomToast;
+import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
@@ -273,6 +277,18 @@ public class Account extends AppCompatActivity {
                         } else if (res.getStatus().equals("error")) {
 
                         }
+                    }else if (response.code() == 401){
+                        Helper helper = new Helper();
+                        helper.refreshToken(Account.this, new Helper.RefreshTokenListener() {
+                            @Override
+                            public void onCallback(boolean success) {
+                                if (success) {
+                                    CustomToast customToast = new CustomToast();
+                                    customToast.warning(Account.this, "Silahkan coba lagi", Gravity.TOP);
+                                } else
+                                    Helper.forceLogout(Account.this);
+                            }
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

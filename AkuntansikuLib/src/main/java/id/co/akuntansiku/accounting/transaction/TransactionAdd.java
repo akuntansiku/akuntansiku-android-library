@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,9 +42,11 @@ import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionMode;
 import id.co.akuntansiku.master_data.contact.ContactActivity;
+import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class TransactionAdd extends AppCompatActivity {
@@ -343,89 +349,55 @@ public class TransactionAdd extends AppCompatActivity {
         String nominal = "0";
         if (!e_nominal.getText().toString().equals(""))
             nominal = e_nominal.getText().toString();
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.transaction_add(
+
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).transaction_add(
                 tanggal_asli, debit_code, credit_code, e_nominal.getText().toString(), "akuntansiku_android",
                 mode, e_note.getText().toString(), id_contact, jatuh_tempo
         );
 
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        RetrofitSend.sendData(this, true,  call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")) {
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_OK, returnIntent);
-                            finish();
-                        } else if (res.getStatus().equals("error")) {
-                            l_danger.setVisibility(View.VISIBLE);
-                            t_a_danger.setText(res.getMeta().getError_message());
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(JSONObject data) throws JSONException {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(TransactionAdd.this).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+            public void onError(ApiResponse.Meta meta) {
+                l_danger.setVisibility(View.VISIBLE);
+                t_a_danger.setText(meta.getError_message());
             }
         });
-    }
 
+    }
 
     ArrayList<DataTransactionMode> dataTransactionModes = new ArrayList<>();
 
     private void transaction_format() {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.transaction_mode();
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).transaction_mode();
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")) {
-                            rel_loading.setVisibility(View.GONE);
-                            Gson gson = new Gson();
-                            dataAccounts = gson.fromJson(res.getData().getString("akuntansiku_account"), new TypeToken<List<DataAccount>>() {
-                            }.getType());
+            public void onSuccess(JSONObject data) throws JSONException {
+                rel_loading.setVisibility(View.GONE);
+                Gson gson = new Gson();
+                dataAccounts = gson.fromJson(data.getString("account"), new TypeToken<List<DataAccount>>() {
+                }.getType());
 
-                            dataTransactionModes = gson.fromJson(res.getData().getString("transaction_mode"), new TypeToken<List<DataTransactionMode>>() {
-                            }.getType());
-                            category = new String[dataTransactionModes.size()];
-                            for (int i = 0; i < dataTransactionModes.size(); i++) {
-                                category[i] = dataTransactionModes.get(i).getName();
-                            }
-                            setAdapterCategory();
-                        } else if (res.getStatus().equals("error")) {
-
-                        }
-                    } else if (response.code() == 401) {
-                        Helper.forceLogout(TransactionAdd.this);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                dataTransactionModes = gson.fromJson(data.getString("transaction_mode"), new TypeToken<List<DataTransactionMode>>() {
+                }.getType());
+                category = new String[dataTransactionModes.size()];
+                for (int i = 0; i < dataTransactionModes.size(); i++) {
+                    category[i] = dataTransactionModes.get(i).getName();
                 }
+                setAdapterCategory();
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
+            public void onError(ApiResponse.Meta meta) {
 
             }
         });
+
     }
 }
