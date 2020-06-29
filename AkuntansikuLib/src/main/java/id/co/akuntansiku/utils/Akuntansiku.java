@@ -202,13 +202,14 @@ public class Akuntansiku {
         }
 
         public static ArrayList<DataAccount> byCategory(Activity activity, int id_category) {
-            if (!checkInitialize(activity)) new ArrayList<>();
+            if (!checkInitialize(activity)) return new ArrayList<>();
             ModelAccount modelAccount = new ModelAccount(activity);
             return modelAccount.getByCategory(id_category);
         }
     }
 
     private static boolean checkInitialize(Activity activity) {
+
         SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, "").equals("")
                 || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, "").equals("")) {
