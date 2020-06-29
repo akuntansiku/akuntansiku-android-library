@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/a_danger"
-        android:background="@drawable/alert_danger"
+        android:background="@drawable/alert_danger_akuntansiku"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding">

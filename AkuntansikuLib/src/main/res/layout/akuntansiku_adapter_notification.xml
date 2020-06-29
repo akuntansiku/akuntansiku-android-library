@@ -11,7 +11,7 @@
         android:layout_width="@dimen/icon"
         android:layout_height="@dimen/icon"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/info"/>
+        android:src="@drawable/info_akuntansiku"/>
 
     <TextView
         android:id="@+id/txtNotifikasi"

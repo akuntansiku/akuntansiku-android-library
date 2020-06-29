@@ -4,14 +4,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+
+import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import id.co.akuntansiku.accounting.Account.model.DataAccount;
+import id.co.akuntansiku.accounting.Account.model.DataCategory;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.TransactionAdd;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
@@ -54,6 +61,7 @@ public class Akuntansiku {
 
     public static void addTransaction(Activity context, DataContact dataContact, String created_at, String note, int mode, String payment_method,
                                       String tag, String cost_number, boolean is_draft, String due_date, String parent_code, ArrayList<DataTransaction.Journal> journals) {
+        if (!checkInitialize(context)) return;
         SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
             return;
@@ -120,6 +128,7 @@ public class Akuntansiku {
     }
 
     public static void resendData(final Activity context) {
+        if (!checkInitialize(context)) return;
         SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
             return;
@@ -163,6 +172,43 @@ public class Akuntansiku {
 
             }
         });
+    }
+
+
+    public static class Category{
+        public static ArrayList<DataCategory> getCategoryAll(Activity activity){
+            if (!checkInitialize(activity)) new ArrayList<>();
+            ModelCategory modelCategory = new ModelCategory(activity);
+            return modelCategory.getAll();
+        }
+    }
+
+    public static class Account{
+        public static ArrayList<DataAccount> all(Activity activity){
+            if (!checkInitialize(activity)) return new ArrayList<>();
+            ModelAccount modelAccount = new ModelAccount(activity);
+            return modelAccount.getAll();
+        }
+
+        public static ArrayList<DataAccount> byCategory(Activity activity, int id_category){
+            if (!checkInitialize(activity)) new ArrayList<>();
+            ModelAccount modelAccount = new ModelAccount(activity);
+            return modelAccount.getByCategory(id_category);
+        }
+    }
+
+    private static boolean checkInitialize(Activity activity){
+        SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID,"").equals("")
+                || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET,"").equals("")){
+            Log.e("Akuntansiku", "You haven't entered client_id and client_secret yet");
+            return false;
+        }
+        if (!sharedPreferencess.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)){
+            Log.e("Akuntansiku", "Data is not saved because Akuntansiku isn't logged in");
+            return false;
+        }
+        return true;
     }
 
     public static final Integer GENERAL = -1;

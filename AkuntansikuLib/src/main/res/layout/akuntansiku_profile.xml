@@ -178,7 +178,7 @@
                 android:text="SAVE"
                 app:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/colorWhite"
-                android:background="@drawable/button_primary"/>
+                android:background="@drawable/button_primary_akuntansiku"/>
         </LinearLayout>
     </ScrollView>
 

@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.Account.model.DataCategory;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.transaction.TransactionAdd;
 import id.co.akuntansiku.accounting.transaction.TransactionDetail;
 import id.co.akuntansiku.accounting.transaction.adapter.TransactionAdapter;
@@ -103,12 +105,6 @@ public class AccountingActivity extends AppCompatActivity {
                 transaction_get(from, to);
             }
         });
-
-        ModelTransactionPending modelTransactionPending = new ModelTransactionPending(this);
-        ArrayList<DataTransactionPending> dataTransactionPendings = modelTransactionPending.all();
-        for (int i = 0 ; i < dataTransactionPendings.size(); i++){
-            Log.d("mantan", dataTransactionPendings.get(i).getData());
-        }
     }
 
     String first_day, last_day;

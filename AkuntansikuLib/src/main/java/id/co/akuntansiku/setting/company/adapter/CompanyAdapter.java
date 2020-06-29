@@ -17,12 +17,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.Account.Account;
+import id.co.akuntansiku.accounting.Account.model.DataAccount;
+import id.co.akuntansiku.accounting.Account.model.DataCategory;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.setting.company.model.DataCompany;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
@@ -72,7 +82,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                     e.printStackTrace();
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -147,6 +157,15 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                             editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, res.getData().getJSONObject("user").getString("role_web"));
                             editor.putBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, true);
                             editor.apply();
+
+                            Gson gson = new Gson();
+                            ArrayList<DataAccount> dataAccounts = gson.fromJson(res.getData().getString("account"), new TypeToken<List<DataAccount>>() {}.getType());
+                            ModelAccount modelAccount = new ModelAccount(context);
+                            modelAccount.createAll(dataAccounts);
+
+                            ArrayList<DataCategory> dataCategories = gson.fromJson(res.getData().getString("category"), new TypeToken<List<DataCategory>>() {}.getType());
+                            ModelCategory modelCategory = new ModelCategory(context);
+                            modelCategory.createAll(dataCategories);
 
                             CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("company").getString("currency"));
                             Intent intent = new Intent(context, AccountingActivity.class);

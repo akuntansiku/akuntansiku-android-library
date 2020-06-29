@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Pengeluaran"
-                        android:background="@drawable/button_disabled"
+                        android:background="@drawable/button_disabled_akuntansiku"
                         android:textColor="@color/colorGreyMedium"
                         android:textSize="@dimen/titleSize"
                         app:fontFamily="@font/ubuntu_medium" />
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
                         android:layout_weight="1"
-                        android:background="@drawable/button_disabled"
+                        android:background="@drawable/button_disabled_akuntansiku"
                         android:text="Pembayaran Listrik"
                         android:textColor="@color/colorGreyMedium"
                         app:fontFamily="@font/ubuntu_regular" />

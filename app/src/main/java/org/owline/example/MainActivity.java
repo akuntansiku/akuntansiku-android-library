@@ -2,6 +2,7 @@ package org.owline.example;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
@@ -52,5 +54,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Akuntansiku.resendData(this);
+        ArrayList<DataAccount> dataAccounts = Akuntansiku.Account.all(this);
+        for (int i = 0; i < dataAccounts.size(); i++){
+            Log.d("mantan", dataAccounts.get(i).getName());
+        }
     }
 }

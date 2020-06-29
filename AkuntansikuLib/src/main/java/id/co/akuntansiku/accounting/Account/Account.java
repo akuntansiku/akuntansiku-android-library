@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -37,12 +38,15 @@ import id.co.akuntansiku.accounting.Account.adapter.NotifikasiAccountAdapter;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.Account.model.DataCategory;
 import id.co.akuntansiku.accounting.Account.model.DataNotifikasi;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.utils.ComingSoon;
 import id.co.akuntansiku.utils.CustomToast;
 import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 import okhttp3.ResponseBody;
 
@@ -255,58 +259,28 @@ public class Account extends AppCompatActivity {
     }
 
     private void account_get_all() {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(this).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.account_get_all();
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(this).account_get_all();
+        RetrofitSend.sendData(this, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")) {
-                            Gson gson = new Gson();
-                            dataAccounts = gson.fromJson(res.getData().getString("akuntansiku_account"), new TypeToken<List<DataAccount>>() {
-                            }.getType());
-                            dataCategories = gson.fromJson(res.getData().getString("category"), new TypeToken<List<DataCategory>>() {
-                            }.getType());
-                            for (int i = 0; i < dataCategories.size(); i++) {
-                                categories[i + 1] = dataCategories.get(i);
-                            }
-                            showAdapter(dataAccounts);
-                        } else if (res.getStatus().equals("error")) {
-
-                        }
-                    }else if (response.code() == 401){
-                        Helper helper = new Helper();
-                        helper.refreshToken(Account.this, new Helper.RefreshTokenListener() {
-                            @Override
-                            public void onCallback(boolean success) {
-                                if (success) {
-                                    CustomToast customToast = new CustomToast();
-                                    customToast.warning(Account.this, "Silahkan coba lagi", Gravity.TOP);
-                                } else
-                                    Helper.forceLogout(Account.this);
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onSuccess(JSONObject data) throws JSONException {
+                Gson gson = new Gson();
+                dataAccounts = gson.fromJson(data.getString("account"), new TypeToken<List<DataAccount>>() {
+                }.getType());
+                ModelAccount modelAccount = new ModelAccount(Account.this);
+                modelAccount.createAll(dataAccounts);
+                dataCategories = gson.fromJson(data.getString("category"), new TypeToken<List<DataCategory>>() {
+                }.getType());
+                ModelCategory modelCategory = new ModelCategory(Account.this);
+                modelCategory.createAll(dataCategories);
+                for (int i = 0; i < dataCategories.size(); i++) {
+                    categories[i + 1] = dataCategories.get(i);
                 }
+                showAdapter(dataAccounts);
             }
 
             @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(Account.this).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+            public void onError(ApiResponse.Meta meta) {
+
             }
         });
     }

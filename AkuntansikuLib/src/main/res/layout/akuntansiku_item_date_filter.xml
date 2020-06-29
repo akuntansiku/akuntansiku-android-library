@@ -5,7 +5,7 @@
         android:id="@+id/spiner_filter_tanggal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_white" />
+        android:background="@drawable/button_white_akuntansiku" />
 
 
     <ImageView
@@ -14,5 +14,5 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/padding"
-        android:src="@drawable/calendar" />
+        android:src="@drawable/calendar_akuntansiku" />
 </RelativeLayout>

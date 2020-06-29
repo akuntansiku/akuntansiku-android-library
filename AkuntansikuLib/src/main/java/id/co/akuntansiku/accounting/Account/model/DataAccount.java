@@ -1,8 +1,6 @@
 package id.co.akuntansiku.accounting.Account.model;
 
 public class DataAccount {
-    int id_;
-    int id;
     String name;
     String code;
     int status;
@@ -10,14 +8,10 @@ public class DataAccount {
     int id_category;
     String description;
     int archived;
-    double debit;
-    double credit;
 
     public DataAccount(){}
 
-    public DataAccount(int id_, int id, String name, String code, int status, int type, int id_category, String description, int archived, double debit, double credit) {
-        this.id_ = id_;
-        this.id = id;
+    public DataAccount(String name, String code, int status, int type, int id_category, String description, int archived) {
         this.name = name;
         this.code = code;
         this.status = status;
@@ -25,24 +19,6 @@ public class DataAccount {
         this.id_category = id_category;
         this.description = description;
         this.archived = archived;
-        this.debit = debit;
-        this.credit = credit;
-    }
-
-    public int getId_() {
-        return id_;
-    }
-
-    public void setId_(int id_) {
-        this.id_ = id_;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -99,21 +75,5 @@ public class DataAccount {
 
     public void setArchived(int archived) {
         this.archived = archived;
-    }
-
-    public double getDebit() {
-        return debit;
-    }
-
-    public void setDebit(double debit) {
-        this.debit = debit;
-    }
-
-    public double getCredit() {
-        return credit;
-    }
-
-    public void setCredit(double credit) {
-        this.credit = credit;
     }
 }

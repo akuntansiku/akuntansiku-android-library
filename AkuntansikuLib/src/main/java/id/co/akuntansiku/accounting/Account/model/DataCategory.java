@@ -1,24 +1,14 @@
 package id.co.akuntansiku.accounting.Account.model;
 
 public class DataCategory {
-    int id_;
     int id;
     String name;
     int type;
 
-    public DataCategory(int id_, int id, String name, int type) {
-        this.id_ = id_;
+    public DataCategory(int id, String name, int type) {
         this.id = id;
         this.name = name;
         this.type = type;
-    }
-
-    public int getId_() {
-        return id_;
-    }
-
-    public void setId_(int id_) {
-        this.id_ = id_;
     }
 
     public int getId() {
