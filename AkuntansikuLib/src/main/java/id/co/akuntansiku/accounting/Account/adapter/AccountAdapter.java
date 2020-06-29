@@ -70,4 +70,6 @@ public class AccountAdapter extends ArrayAdapter<DataAccount> {
         return v;
     }
 
+
+
 }

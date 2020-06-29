@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
@@ -35,8 +36,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ArrayList<DataAccount> data = Akuntansiku.Account.byCategory(this, 1);
+
         Spinner spinner_account = findViewById(R.id.s_account);
-        spinner_account.setAdapter(Akuntansiku.Account.accountSpinnerByCategory(this, 1));
+        spinner_account.setAdapter(Akuntansiku.Account.accountSpinner(this, data));
+        spinner_account.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void tambah() {

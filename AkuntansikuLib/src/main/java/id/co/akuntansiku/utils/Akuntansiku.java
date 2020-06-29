@@ -187,12 +187,8 @@ public class Akuntansiku {
     }
 
     public static class Account {
-        public static AccountSpinner accountSpinnerAll(Activity activity) {
-            return new AccountSpinner(activity, R.layout.akuntansiku_simple_spinner_item, all(activity));
-        }
-
-        public static AccountSpinner accountSpinnerByCategory(Activity activity, int id_category) {
-            return new AccountSpinner(activity, R.layout.akuntansiku_simple_spinner_item, byCategory(activity, id_category));
+        public static AccountSpinner accountSpinner(Activity activity, ArrayList<DataAccount> data) {
+            return new AccountSpinner(activity, R.layout.akuntansiku_simple_spinner_item, data);
         }
 
         public static ArrayList<DataAccount> all(Activity activity) {
@@ -209,7 +205,6 @@ public class Akuntansiku {
     }
 
     private static boolean checkInitialize(Activity activity) {
-
         SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, "").equals("")
                 || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, "").equals("")) {
