@@ -15,6 +15,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
+import id.co.akuntansiku.accounting.Account.adapter.AccountSpinner;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.Account.model.DataCategory;
 import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
@@ -41,10 +44,10 @@ public class Akuntansiku {
         editor.apply();
     }
 
-    public static void lauch(Activity activity){
+    public static void lauch(Activity activity) {
         SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID,"").equals("")
-        || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET,"").equals("")){
+        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, "").equals("")
+                || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, "").equals("")) {
             throw new RuntimeException("You haven't entered client_id and client_secret yet");
         }
         if (sharedPreferencess.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
@@ -151,7 +154,7 @@ public class Akuntansiku {
                         } else if (res.getStatus().equals("error")) {
 
                         }
-                    }else if (response.code() == 401){
+                    } else if (response.code() == 401) {
                         Helper helper = new Helper();
                         helper.refreshToken(context, new Helper.RefreshTokenListener() {
                             @Override
@@ -175,36 +178,44 @@ public class Akuntansiku {
     }
 
 
-    public static class Category{
-        public static ArrayList<DataCategory> getCategoryAll(Activity activity){
+    public static class Category {
+        public static ArrayList<DataCategory> getCategoryAll(Activity activity) {
             if (!checkInitialize(activity)) new ArrayList<>();
             ModelCategory modelCategory = new ModelCategory(activity);
             return modelCategory.getAll();
         }
     }
 
-    public static class Account{
-        public static ArrayList<DataAccount> all(Activity activity){
+    public static class Account {
+        public static AccountSpinner accountSpinnerAll(Activity activity) {
+            return new AccountSpinner(activity, R.layout.akuntansiku_simple_spinner_item, all(activity));
+        }
+
+        public static AccountSpinner accountSpinnerByCategory(Activity activity, int id_category) {
+            return new AccountSpinner(activity, R.layout.akuntansiku_simple_spinner_item, byCategory(activity, id_category));
+        }
+
+        public static ArrayList<DataAccount> all(Activity activity) {
             if (!checkInitialize(activity)) return new ArrayList<>();
             ModelAccount modelAccount = new ModelAccount(activity);
             return modelAccount.getAll();
         }
 
-        public static ArrayList<DataAccount> byCategory(Activity activity, int id_category){
+        public static ArrayList<DataAccount> byCategory(Activity activity, int id_category) {
             if (!checkInitialize(activity)) new ArrayList<>();
             ModelAccount modelAccount = new ModelAccount(activity);
             return modelAccount.getByCategory(id_category);
         }
     }
 
-    private static boolean checkInitialize(Activity activity){
+    private static boolean checkInitialize(Activity activity) {
         SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
-        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID,"").equals("")
-                || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET,"").equals("")){
+        if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, "").equals("")
+                || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, "").equals("")) {
             Log.e("Akuntansiku", "You haven't entered client_id and client_secret yet");
             return false;
         }
-        if (!sharedPreferencess.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)){
+        if (!sharedPreferencess.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
             Log.e("Akuntansiku", "Data is not saved because Akuntansiku isn't logged in");
             return false;
         }

@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
                 Akuntansiku.lauch(MainActivity.this);
             }
         });
+
+        Spinner spinner_account = findViewById(R.id.s_account);
+        spinner_account.setAdapter(Akuntansiku.Account.accountSpinnerByCategory(this, 1));
     }
 
     private void tambah() {
