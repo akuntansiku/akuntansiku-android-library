@@ -98,13 +98,16 @@ public class Akuntansiku {
                 return;
             }
 
-            JSONObject data_contact = new JSONObject();
-            data_contact.put("name", dataContact.getName());
-            data_contact.put("email", dataContact.getEmail());
-            data_contact.put("code", dataContact.getCode());
-            data_contact.put("address", dataContact.getAddress());
-            data_contact.put("note", dataContact.getNote());
-            data_contact.put("no_hp", dataContact.getNo_hp());
+            JSONObject data_contact = null;
+            if (dataContact != null) {
+                data_contact = new JSONObject();
+                data_contact.put("name", dataContact.getName());
+                data_contact.put("email", dataContact.getEmail());
+                data_contact.put("code", dataContact.getCode());
+                data_contact.put("address", dataContact.getAddress());
+                data_contact.put("note", dataContact.getNote());
+                data_contact.put("no_hp", dataContact.getNo_hp());
+            }
 
             data_transaction.put("contact", data_contact);
             data_transaction.put("code", code);
@@ -112,7 +115,7 @@ public class Akuntansiku {
             data_transaction.put("note", note);
             data_transaction.put("user_id", user_id);
             data_transaction.put("created_at", date);
-            data_transaction.put("app_source", ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID);
+            data_transaction.put("app_source", sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, ""));
             data_transaction.put("payment_method", payment_method);
             data_transaction.put("tag", tag);
             data_transaction.put("cost_number", cost_number);

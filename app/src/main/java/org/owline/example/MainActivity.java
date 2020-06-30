@@ -35,27 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 Akuntansiku.lauch(MainActivity.this);
             }
         });
-
-        ArrayList<DataAccount> data = Akuntansiku.Account.byCategory(this, 1);
-
-        Spinner spinner_account = findViewById(R.id.s_account);
-        spinner_account.setAdapter(Akuntansiku.Account.accountSpinner(this, data));
-        spinner_account.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 
     private void tambah() {
-        String created_at = "2020-06-25 12:00:01";
-
+        String created_at = "2020-06-30 12:00:01";
         String contact_name = "Didit Sepiyanto";
         String contact_email = "sepiyantodidit@gmail.com";
         String contact_address = "Surabaya";
@@ -73,9 +56,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Akuntansiku.resendData(this);
+        showAccount();
         ArrayList<DataAccount> dataAccounts = Akuntansiku.Account.all(this);
         for (int i = 0; i < dataAccounts.size(); i++){
             Log.d("mantan", dataAccounts.get(i).getName());
         }
+    }
+
+    private void showAccount(){
+        ArrayList<DataAccount> data = Akuntansiku.Account.byCategory(this, 1);
+
+        Spinner spinner_account = findViewById(R.id.s_account);
+        spinner_account.setAdapter(Akuntansiku.Account.accountSpinner(this, data));
+        spinner_account.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
