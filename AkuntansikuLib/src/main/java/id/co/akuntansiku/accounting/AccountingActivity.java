@@ -38,6 +38,7 @@ import id.co.akuntansiku.accounting.transaction.adapter.TransactionAdapter;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
+import id.co.akuntansiku.report.Report;
 import id.co.akuntansiku.setting.SettingActivity;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.CustomToast;
@@ -75,6 +76,14 @@ public class AccountingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AccountingActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageView report = findViewById(R.id.report);
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountingActivity.this, Report.class);
                 startActivity(intent);
             }
         });

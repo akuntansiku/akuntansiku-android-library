@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/t_name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:singleLine="true"
-    android:ellipsize="marquee"
-    android:textIsSelectable="false"
-    android:textSize="@dimen/titleSize"
     android:paddingLeft="@dimen/padding_separuh"
     android:paddingTop="@dimen/padding_separuh"
-    android:paddingBottom="@dimen/padding_separuh"/>
+    android:paddingBottom="@dimen/padding_separuh"
+    android:gravity="center_vertical">
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/logo_akuntansiku"/>
+    <TextView
+        android:fontFamily="@font/ubuntu_medium"
+        android:layout_marginLeft="@dimen/padding_separuh"
+        android:id="@+id/t_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/titleSize"
+        android:paddingTop="@dimen/padding_separuh"
+        android:paddingBottom="@dimen/padding_separuh"/>
+</LinearLayout>

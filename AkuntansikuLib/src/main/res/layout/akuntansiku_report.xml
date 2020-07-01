@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/akuntansiku_custom_toolbar"/>
+    <LinearLayout
+        android:padding="@dimen/padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginBottom="@dimen/padding"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Untuk membuka laporan akuntansiku seperti Jurnal, Buku Besar, Laba Rugi dan lainnya bisa dengan cara men-download aplikasi Akuntansiku di Play Store atau melalui website akuntansiku.co.id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/b_download"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:text="Download Akuntansiku"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/ubuntu_bold"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_primary_akuntansiku"/>
+        <TextView
+            android:layout_marginBottom="@dimen/padding_separuh"
+            android:layout_marginTop="@dimen/padding_separuh"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="atau"/>
+        <Button
+            android:id="@+id/b_open_website"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:text="Buka Website"
+            android:fontFamily="@font/ubuntu_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_primary_outline_akuntansiku"/>
+    </LinearLayout>
+</LinearLayout>

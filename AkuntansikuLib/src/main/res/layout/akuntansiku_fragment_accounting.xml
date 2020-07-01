@@ -38,6 +38,14 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding">
                 <ImageView
+                    android:layout_marginRight="@dimen/padding_separuh"
+                    android:id="@+id/report"
+                    android:layout_marginLeft="@dimen/padding_separuh"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/clipboard_akuntansiku" />
+                <ImageView
                     android:id="@+id/setting"
                     android:layout_marginLeft="@dimen/padding_separuh"
                     android:layout_width="20dp"

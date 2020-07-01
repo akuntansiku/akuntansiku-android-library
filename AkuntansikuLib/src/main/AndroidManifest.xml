@@ -55,5 +55,8 @@
         <activity
             android:name=".setting.profile.Profile"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".report.Report"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>
