@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,8 +33,9 @@ public class Login extends AppCompatActivity {
     EditText t_email, t_password;
     ProgressBar p_login;
     LinearLayout l_danger;
-    TextView t_a_danger;
-    LinearLayout l_register;
+    TextView t_a_danger, t_1, t_2;
+    LinearLayout l_register, l_welcome;
+    Button b_next;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +64,20 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        t_1 = findViewById(R.id.t_1);
+        t_2 = findViewById(R.id.t_2);
+        l_welcome = findViewById(R.id.l_welcome);
+        b_next = findViewById(R.id.b_next);
+        b_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                l_welcome.setVisibility(View.GONE);
+            }
+        });
+
+        SharedPreferences sharedPreferences = Login.this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        t_1.setText("Selamat Datang di Integrasi " + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_APP_NAME, "") + " dengan Akuntansiku");
+        t_2.setText("Terintregasi dengan " + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_APP_NAME, ""));
 
         LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
         TextView text_toolbar = findViewById(R.id.text_toolbar);
@@ -95,12 +111,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-                    if (response.code() == 401){
+                    if (response.code() == 401) {
                         p_login.setVisibility(View.GONE);
                         l_danger.setVisibility(View.VISIBLE);
                         t_a_danger.setText("Login gagal, cek kembali email dan password anda");
                         return;
-                    }else if (response.code() == 200) {
+                    } else if (response.code() == 200) {
                         String res = response.body().string();
                         SharedPreferences sharedPreferences = Login.this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();

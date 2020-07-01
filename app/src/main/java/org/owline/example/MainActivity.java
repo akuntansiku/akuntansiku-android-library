@@ -26,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         Button button = findViewById(R.id.launch);
-        Akuntansiku.initialization(this, "kasir_pintar", "1NGvqXi5qjWtIuKIAOB5FB8E47n16B7mlHDxehVo");
+        Akuntansiku.initialization(this,
+                "kasir_pintar",
+                "1NGvqXi5qjWtIuKIAOB5FB8E47n16B7mlHDxehVo",
+                "Kasir Pintar Pro");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,7 @@
                 android:fontFamily="@font/lato_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enter your registered email to log in"/>
+                android:text="Masukkan email dan password untuk login"/>
             <include layout="@layout/akuntansiku_alert_danger"/>
             <LinearLayout
                 android:layout_marginTop="@dimen/padding"
@@ -117,6 +117,159 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daftar"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/l_welcome"
+            android:padding="@dimen/padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/colorWhite">
+            <ScrollView
+                android:layout_weight="1"
+                android:layout_marginBottom="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_margin="@dimen/padding_separuh"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/logo_akuntansiku" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/t_1"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Selamat Datang di Integrasi Kasir Pintar dengan Akuntansiku"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:fontFamily="@font/ubuntu_bold" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/check_blue_akuntansiku"/>
+
+                        <TextView
+                            android:id="@+id/t_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="Terintregasi dengan Kasir Pintar Pro" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding_separuh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/check_blue_akuntansiku"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="Unlimited Transaksi Keuangan" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding_separuh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/check_blue_akuntansiku"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="Monitoring biaya pemasukan dan pengeluaran" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding_separuh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/check_blue_akuntansiku"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="Monitor Deposit Kas dan Bank" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding_separuh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/check_blue_akuntansiku"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="Laporan Jurnal Umum, Buku Besar, Laba Rugi dan Neraca Usaha" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+            <Button
+                android:id="@+id/b_next"
+                android:textAllCaps="false"
+                android:elevation="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lanjutkan"
+                app:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/button_primary_akuntansiku"/>
         </LinearLayout>
     </RelativeLayout>
 

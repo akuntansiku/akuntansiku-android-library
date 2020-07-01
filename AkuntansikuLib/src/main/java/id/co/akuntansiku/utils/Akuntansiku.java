@@ -34,13 +34,15 @@ import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 import id.co.akuntansiku.utils.sqlite.ModelAllTable;
 
 public class Akuntansiku {
-    public static void initialization(Activity activity, String client_id, String client_secret) {
+    public static void initialization(Activity activity, String client_id, String client_secret, String app_name) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, client_id);
         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, client_secret);
         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_GRANT_TYPE, "password");
         editor.putString(ConfigAkuntansiku.AKUNTANSIKU_SCOPE, "*");
+        editor.putString(ConfigAkuntansiku.AKUNTANSIKU_APP_NAME, app_name);
         editor.apply();
     }
 
