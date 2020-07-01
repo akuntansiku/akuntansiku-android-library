@@ -133,6 +133,12 @@
                             android:layout_height="wrap_content"
                             android:text=""/>
                     </LinearLayout>
+                    <include layout="@layout/akuntansiku_item_journal"/>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/l_journal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
             </ScrollView>

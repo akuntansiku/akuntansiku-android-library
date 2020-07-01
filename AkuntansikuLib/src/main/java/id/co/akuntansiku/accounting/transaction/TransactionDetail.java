@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -43,11 +45,13 @@ public class TransactionDetail extends AppCompatActivity {
     DataContact dataContact;
     Button b_delete, b_edit;
     RelativeLayout rel_loading;
+    LinearLayout l_journal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.akuntansiku_transaction_detail);
+        l_journal = findViewById(R.id.l_journal);
         rel_loading = findViewById(R.id.rel_loading);
         rel_loading.setVisibility(View.VISIBLE);
         t_transaction_mode = findViewById(R.id.t_transaction_mode);
@@ -110,6 +114,22 @@ public class TransactionDetail extends AppCompatActivity {
         });
     }
 
+
+
+    private void setJournal(DataTransaction dataTransaction){
+        for (int i = 0; i < dataTransaction.getJournal().size(); i++){
+            LayoutInflater inflater = LayoutInflater.from(TransactionDetail.this);
+            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.akuntansiku_item_journal, null, false);
+            TextView t_name = layout.findViewById(R.id.t_name);
+            TextView t_debit = layout.findViewById(R.id.t_debit);
+            TextView t_credit = layout.findViewById(R.id.t_credit);
+            t_name.setText(dataTransaction.getJournal().get(i).getName());
+            t_debit.setText(CurrencyFormater.cur(this, dataTransaction.getJournal().get(i).getDebit()));
+            t_credit.setText(CurrencyFormater.cur(this, dataTransaction.getJournal().get(i).getCredit()));
+            l_journal.addView(layout);
+        }
+    }
+
     private void set_text(){
         t_transaction_mode.setText("mode " + dataTransaction.getMode());
         t_date.setText(Helper.dateConverter(dataTransaction.getCreated_at()));
@@ -127,6 +147,7 @@ public class TransactionDetail extends AppCompatActivity {
                 Gson gson = new Gson();
                 dataTransaction = gson.fromJson(data.getString("transaction"), new TypeToken<DataTransaction>(){}.getType());
                 set_text();
+                setJournal(dataTransaction);
                 get_contact_detail(dataTransaction.getContact_id());
             }
 
@@ -144,6 +165,7 @@ public class TransactionDetail extends AppCompatActivity {
             public void onSuccess(JSONObject data) throws JSONException {
                 Gson gson = new Gson();
                 dataContact = gson.fromJson(data.getString("contact"), new TypeToken<DataContact>(){}.getType());
+                t_contact_name.setText(dataContact.getName());
             }
 
             @Override

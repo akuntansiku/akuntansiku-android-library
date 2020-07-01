@@ -43,7 +43,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/settings" />
+                    android:src="@drawable/settings_akuntansiku" />
             </LinearLayout>
 
         </LinearLayout>
@@ -75,6 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/add_akuntansiku" />
 
 </RelativeLayout>

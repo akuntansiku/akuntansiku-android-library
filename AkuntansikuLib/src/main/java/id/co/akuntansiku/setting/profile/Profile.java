@@ -19,7 +19,7 @@ import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class Profile extends AppCompatActivity {
-    TextView t_name, t_email, t_no_phone;
+    TextView t_name, t_email, t_no_phone, t_company_name, t_role;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,8 @@ public class Profile extends AppCompatActivity {
         t_name = findViewById(R.id.t_name);
         t_email = findViewById(R.id.t_email);
         t_no_phone = findViewById(R.id.t_no_phone);
+        t_company_name = findViewById(R.id.t_company_name);
+        t_role = findViewById(R.id.t_role);
 
         profile_get();
         LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
@@ -56,6 +58,11 @@ public class Profile extends AppCompatActivity {
                             t_name.setText(user.getString("name"));
                             t_email.setText(user.getString("email"));
                             t_no_phone.setText(user.getString("no_hp"));
+                            JSONObject company = res.getData().getJSONObject("company");
+                            t_company_name.setText(company.getString("name"));
+                            String role = res.getData().getString("role");
+                            t_role.setText(role);
+
                         }else if (res.getStatus().equals("error")){
 
                         }
