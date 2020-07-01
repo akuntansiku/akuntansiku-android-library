@@ -180,7 +180,6 @@ public class Akuntansiku {
         });
     }
 
-
     public static class Category {
         public static ArrayList<DataCategory> getCategoryAll(Activity activity) {
             if (!checkInitialize(activity)) new ArrayList<>();
@@ -207,7 +206,7 @@ public class Akuntansiku {
         }
     }
 
-    private static boolean checkInitialize(Activity activity) {
+    public static boolean checkInitialize(Activity activity) {
         SharedPreferences sharedPreferencess = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_ID, "").equals("")
                 || sharedPreferencess.getString(ConfigAkuntansiku.AKUNTANSIKU_CLIENT_SECRET, "").equals("")) {
