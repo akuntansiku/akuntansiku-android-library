@@ -64,8 +64,6 @@
                         android:textColor="@color/colorBlackTwo"
                         app:fontFamily="@font/ubuntu_regular" />
                     <TextView
-                        android:layout_marginLeft="@dimen/padding_separuh"
-                        android:gravity="right"
                         android:id="@+id/t_note"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

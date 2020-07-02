@@ -11,6 +11,7 @@ import android.view.Gravity;
 import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.user.Login;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 import id.co.akuntansiku.utils.sqlite.ModelAllTable;
 
@@ -133,6 +135,25 @@ public class Akuntansiku {
         }
 
         resendData(context);
+    }
+
+    public interface DeleteTransactionListener {
+        public void onCallback(boolean success);
+    }
+
+    public static void deteleTransaction(Activity activity, String code, final DeleteTransactionListener listener) {
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(activity).transaction_delete(code);
+        RetrofitSend.sendData(activity, true, call, new RetrofitSend.RetrofitSendListener() {
+            @Override
+            public void onSuccess(JSONObject data) throws JSONException {
+                listener.onCallback(true);
+            }
+
+            @Override
+            public void onError(ApiResponse.Meta meta) {
+                listener.onCallback(false);
+            }
+        });
     }
 
     public static void resendData(final Activity context) {

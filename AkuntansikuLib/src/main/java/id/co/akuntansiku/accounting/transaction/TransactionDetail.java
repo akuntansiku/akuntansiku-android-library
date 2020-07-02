@@ -41,7 +41,7 @@ import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class TransactionDetail extends AppCompatActivity {
     DataTransaction dataTransaction;
-    TextView t_transaction_mode, t_date, t_nominal, t_contact_name, t_due_date, t_note;
+    TextView t_transaction_mode, t_date, t_contact_name, t_due_date, t_note;
     DataContact dataContact;
     Button b_delete, b_edit;
     RelativeLayout rel_loading;
@@ -56,7 +56,6 @@ public class TransactionDetail extends AppCompatActivity {
         rel_loading.setVisibility(View.VISIBLE);
         t_transaction_mode = findViewById(R.id.t_transaction_mode);
         t_date = findViewById(R.id.t_date);
-        t_nominal = findViewById(R.id.t_nominal);
         t_contact_name = findViewById(R.id.t_contact_name);
         t_due_date = findViewById(R.id.t_due_date);
         t_note = findViewById(R.id.t_note);
@@ -133,7 +132,6 @@ public class TransactionDetail extends AppCompatActivity {
     private void set_text(){
         t_transaction_mode.setText("mode " + dataTransaction.getMode());
         t_date.setText(Helper.dateConverter(dataTransaction.getCreated_at()));
-        t_nominal.setText(CurrencyFormater.cur(this, Helper.debitToNominal(dataTransaction.getJournal())));
         t_note.setText(dataTransaction.getNote());
         t_due_date.setText(dataTransaction.getDue_date());
     }

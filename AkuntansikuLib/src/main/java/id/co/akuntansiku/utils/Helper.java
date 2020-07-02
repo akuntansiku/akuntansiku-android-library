@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -21,6 +22,7 @@ import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
+import id.co.akuntansiku.utils.retrofit.RetrofitSend;
 import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 import okhttp3.ResponseBody;
 
@@ -139,12 +141,11 @@ public class Helper {
         return sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_DATABASE_NAME, "AKUNTANSIKU");
     }
 
+
+    private RefreshTokenListener listener;
     public interface RefreshTokenListener {
         public void onCallback(boolean success);
     }
-
-    private RefreshTokenListener listener;
-
     public void refreshToken(final Activity activity, final RefreshTokenListener listener){
         this.listener = listener;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);

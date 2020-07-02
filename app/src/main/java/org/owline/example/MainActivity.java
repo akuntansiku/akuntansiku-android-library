@@ -83,4 +83,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void deleteTransaction(){
+        String code = "";
+        Akuntansiku.deteleTransaction(this, code, new Akuntansiku.DeleteTransactionListener() {
+            @Override
+            public void onCallback(boolean success) {
+                
+            }
+        });
+    }
 }
