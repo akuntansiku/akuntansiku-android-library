@@ -27,6 +27,10 @@ public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_GRANT_TYPE = "AKUNTANSIKU_GRANT_TYPE";
     public static final String AKUNTANSIKU_SCOPE = "AKUNTANSIKU_SCOPE";
     public static final String AKUNTANSIKU_APP_NAME = "AKUNTANSIKU_APP_NAME";
-    public static final String AKUNTANSIKU_APP_LOGO = "AKUNTANSIKU_APP_LOGO";
+
+    public static final String AKUNTANSIKU_ADD = "1";
+    public static final String AKUNTANSIKU_UPDATE = "2";
+    public static final String AKUNTANSIKU_DELETE = "3";
+
 
 }

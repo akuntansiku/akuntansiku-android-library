@@ -15,6 +15,18 @@
         android:layout_height="wrap_content"
         android:text="LAUNCH AKUNTANSIKU"/>
 
+    <Button
+        android:layout_marginTop="@dimen/padding"
+        android:background="@drawable/button_primary"
+        android:layout_centerInParent="true"
+        android:id="@+id/add"
+        android:textColor="#fff"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah TRansaksi"/>
+
     <TextView
         android:layout_marginTop="@dimen/padding_triple"
         android:layout_width="match_parent"

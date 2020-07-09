@@ -18,6 +18,7 @@ public class ModelAllTable extends SQLiteOpenHelper {
         this.db = db;
         db.execSQL("create table if not exists " + "model_transaction_pending" + " (" +
                 "code varchar(225) primary key, " +
+                "status varchar(225), " +
                 "data text, " +
                 "created_at DEFAULT CURRENT_TIMESTAMP);");
 

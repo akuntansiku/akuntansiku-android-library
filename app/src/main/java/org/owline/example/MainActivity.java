@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
 import id.co.akuntansiku.accounting.Account.model.DataAccount;
@@ -25,23 +26,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        Button button = findViewById(R.id.launch);
+        Button button_launch = findViewById(R.id.launch);
         Akuntansiku.initialization(this,
                 "kasir_pintar",
                 "1NGvqXi5qjWtIuKIAOB5FB8E47n16B7mlHDxehVo",
                 "Kasir Pintar Pro");
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button_launch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Akuntansiku.lauch(MainActivity.this);
+            }
+        });
+
+        Button button_add = findViewById(R.id.add);
+        button_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 tambah();
-                Akuntansiku.lauch(MainActivity.this);
             }
         });
     }
 
     private void tambah() {
-        String created_at = "2020-06-30 12:00:01";
+        int random = new Random().nextInt((60 - 10) + 1) + 10;
+        String created_at = "2020-07-02 12:"+random+":01";
         String contact_name = "Didit Sepiyanto";
         String contact_email = "sepiyantodidit@gmail.com";
         String contact_address = "Surabaya";
@@ -89,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         Akuntansiku.deteleTransaction(this, code, new Akuntansiku.DeleteTransactionListener() {
             @Override
             public void onCallback(boolean success) {
-                
+
             }
         });
     }

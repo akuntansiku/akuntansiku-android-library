@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +23,12 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     private String TABLE_NAME = "model_transaction_pending";
     private Context context;
     private static ModelTransactionPending sInstance;
+    /*
+        status
+        add
+        update
+        delete
+     */
 
     public ModelTransactionPending(Context context) {
         super(context, Helper.getDatabaseName(context), null, DATABASE_VERSION);
@@ -55,10 +62,11 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
 
     }
 
-    public void create(String code, String data_transaction) {
+    public void create(String code, String status, String data_transaction) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues data = new ContentValues();
         data.put("code", code);
+        data.put("status", status);
         data.put("data", data_transaction);
         db.insert(TABLE_NAME, null, data);
         db.close();
@@ -86,13 +94,19 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
 
     public String toString() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cur = db.rawQuery("select * from " + TABLE_NAME , null);
+        Cursor cur = db.rawQuery("select * from " + TABLE_NAME +" order by  status asc" , null);
         int i = 0;
         if (cur.getCount() > 0) cur.moveToFirst();
         JSONArray jsonArray = new JSONArray();
         while (i < cur.getCount()) {
             try {
-                JSONObject jsonObject = new JSONObject(cur.getString(cur.getColumnIndex("data")));
+                JSONObject jsonObject = new JSONObject();
+                String code = cur.getString(cur.getColumnIndex("code"));
+                String status = cur.getString(cur.getColumnIndex("status"));
+                JSONObject data = new JSONObject(cur.getString(cur.getColumnIndex("data")));
+                jsonObject.put("code", code);
+                jsonObject.put("status", status);
+                jsonObject.put("data", data);
                 jsonArray.put(jsonObject);
             }catch (Exception e){
                 e.printStackTrace();
@@ -100,6 +114,7 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
             cur.moveToNext();
             i++;
         }
+        Log.d("ModelTransactionPending", jsonArray.toString());
         cur.close();
         db.close();
         return jsonArray.toString();
