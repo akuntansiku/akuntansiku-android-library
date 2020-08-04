@@ -1,10 +1,12 @@
 package id.co.akuntansiku.utils;
 
+import id.co.akuntansiku.BuildConfig;
+
 public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_DATABASE_NAME = "AKUNTANSIKU_AKUNTANSIKU";
     public static final int AKUNTANSIKU_DATABASE_VERSION = 1;
 
-    public static String AKUNTANSIKU_BASE_URL = "http://akuntansiku.co.id/";
+    public static String AKUNTANSIKU_BASE_URL = "https://dev.akuntansiku.co.id/";
     public static String AKUNTANSIKU_TERM_OF_SERVICE = "tos";
 
     public static final String AKUNTANSIKU_SHARED_KEY = "AKUNTANSIKU_SHARED_KEY";
@@ -31,6 +33,5 @@ public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_ADD = "1";
     public static final String AKUNTANSIKU_UPDATE = "2";
     public static final String AKUNTANSIKU_DELETE = "3";
-
 
 }

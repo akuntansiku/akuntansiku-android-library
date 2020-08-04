@@ -56,6 +56,9 @@
 
         </LinearLayout>
         <include layout="@layout/akuntansiku_item_date_filter"/>
+        <include android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding"
+            layout="@layout/akuntansiku_alert_danger"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -15,7 +15,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://someurl/"'
+        }
         release {
+            buildConfigField "String", "SERVER_URL", '"http://someotherurl/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

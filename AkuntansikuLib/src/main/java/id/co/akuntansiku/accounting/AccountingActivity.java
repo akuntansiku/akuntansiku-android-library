@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import id.co.akuntansiku.BuildConfig;
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.Account.model.DataCategory;
 import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
@@ -58,12 +59,16 @@ public class AccountingActivity extends AppCompatActivity {
     public static final int DETAIL_TRANSACTION = 2;
     String[] transactionMode = new String[200];
     TextView t_empty;
-    LinearLayout l_back;
+    LinearLayout l_back, l_danger;
+    TextView t_a_danger;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.akuntansiku_fragment_accounting);
+        t_a_danger = findViewById(R.id.t_a_danger);
+        l_danger = findViewById(R.id.a_danger);
+        l_danger.setVisibility(View.GONE);
         l_back = findViewById(R.id.l_back);
         l_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +189,12 @@ public class AccountingActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ModelTransactionPending modelTransactionPending = new ModelTransactionPending(this);
+        ArrayList<DataTransactionPending> dataTransactionPendings = modelTransactionPending.all();
+        if (dataTransactionPendings.size() > 0){
+            l_danger.setVisibility(View.VISIBLE);
+            t_a_danger.setText("Terdapat data yang belum terkirim ke server");
+        }
         SharedPreferences sharedPreferences = this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
             finish();

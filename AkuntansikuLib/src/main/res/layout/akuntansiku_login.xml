@@ -99,24 +99,26 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/l_register"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/padding"
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/padding"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center_horizontal">
             <TextView
                 android:fontFamily="@font/lato"
                 android:textColor="@color/colorBlackTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Belum punya akun?"/>
-            <TextView
-                android:layout_marginLeft="@dimen/padding_separuh"
-                android:fontFamily="@font/lato_bold"
-                android:textColor="@color/colorPrimary"
-                android:layout_width="wrap_content"
+                android:text="Belum punya akun Akuntansiku? Silahkan daftar"/>
+            <Button
+                android:layout_marginTop="@dimen/padding_separuh"
+                android:elevation="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Daftar"/>
+                android:text="Daftar"
+                app:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/button_primary_akuntansiku"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/l_welcome"
@@ -162,6 +164,16 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:fontFamily="@font/ubuntu_bold" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="Akuntansiku merupakan aplikasi pencatatan keuangan UKM" />
 
                     <FrameLayout
                         android:layout_width="match_parent"

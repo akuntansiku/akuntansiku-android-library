@@ -25,9 +25,9 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     private static ModelTransactionPending sInstance;
     /*
         status
-        add
-        update
-        delete
+        1 = add
+        2 = update
+        3 = delete
      */
 
     public ModelTransactionPending(Context context) {
@@ -73,7 +73,7 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     }
 
     public ArrayList<DataTransactionPending> all() {
-        ArrayList<DataTransactionPending> listCashBox = new ArrayList<>();
+        ArrayList<DataTransactionPending> listTransaction = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("select * from " + TABLE_NAME , null);
         int i = 0;
@@ -83,13 +83,13 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
                     cur.getString(cur.getColumnIndex("code")),
                     cur.getString(cur.getColumnIndex("data"))
             );
-            listCashBox.add(dataAccount);
+            listTransaction.add(dataAccount);
             cur.moveToNext();
             i++;
         }
         cur.close();
         db.close();
-        return listCashBox;
+        return listTransaction;
     }
 
     public String toString() {
