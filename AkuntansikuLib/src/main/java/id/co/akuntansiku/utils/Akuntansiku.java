@@ -128,7 +128,7 @@ public class Akuntansiku {
             data_transaction.put("due_date", due_date);
             data_transaction.put("journal", jsonArray);
 
-            modelTransactionPending.create(code, ConfigAkuntansiku.AKUNTANSIKU_ADD,data_transaction.toString());
+            modelTransactionPending.create(code, sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, ""), ConfigAkuntansiku.AKUNTANSIKU_ADD,data_transaction.toString());
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package id.co.akuntansiku.accounting.transaction.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -62,10 +63,11 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
 
     }
 
-    public void create(String code, String status, String data_transaction) {
+    public void create(String code, String user_email, String status, String data_transaction) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues data = new ContentValues();
         data.put("code", code);
+        data.put("user_email", user_email);
         data.put("status", status);
         data.put("data", data_transaction);
         db.insert(TABLE_NAME, null, data);
@@ -81,6 +83,7 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
         while (i < cur.getCount()) {
             DataTransactionPending dataAccount = new DataTransactionPending(
                     cur.getString(cur.getColumnIndex("code")),
+                    cur.getString(cur.getColumnIndex("user_email")),
                     cur.getString(cur.getColumnIndex("data"))
             );
             listTransaction.add(dataAccount);
@@ -93,8 +96,9 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     }
 
     public String toString() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cur = db.rawQuery("select * from " + TABLE_NAME +" order by  status asc" , null);
+        Cursor cur = db.rawQuery("select * from " + TABLE_NAME +" where user_email = '" + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "") + "' order by  status asc" , null);
         int i = 0;
         if (cur.getCount() > 0) cur.moveToFirst();
         JSONArray jsonArray = new JSONArray();

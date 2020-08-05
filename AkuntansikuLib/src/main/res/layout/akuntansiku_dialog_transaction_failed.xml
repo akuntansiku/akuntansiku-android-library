@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:padding="@dimen/padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/t_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data"
+                android:textSize="16sp"
+                android:fontFamily="@font/ubuntu_regular"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:padding="@dimen/padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_marginRight="@dimen/padding_separuh"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:id="@+id/button_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Keluar"
+            app:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_disabled_akuntansiku"/>
+        <Button
+            android:layout_marginLeft="@dimen/padding_separuh"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:elevation="0dp"
+            android:id="@+id/button_copy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salin"
+            app:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_primary_akuntansiku"/>
+    </LinearLayout>
+
+</LinearLayout>

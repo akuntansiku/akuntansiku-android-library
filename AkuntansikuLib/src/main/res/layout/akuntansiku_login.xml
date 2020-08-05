@@ -15,12 +15,11 @@
             android:padding="@dimen/padding">
             <TextView
                 android:layout_marginBottom="@dimen/padding"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
                 android:fontFamily="@font/lato_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Masukkan email dan password untuk login"/>
+                android:text="Masukkan email dan password untuk login. Jika belum memiliki akun aplikasi Akuntansiku silahkan klik tombol Daftar"/>
             <include layout="@layout/akuntansiku_alert_danger"/>
             <LinearLayout
                 android:layout_marginTop="@dimen/padding"

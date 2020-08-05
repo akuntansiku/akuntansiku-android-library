@@ -18,6 +18,11 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".accounting.transaction.TransactionFailed"
+            android:label="Transaksi Gagal"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".accounting.transaction.TransactionDetail"
             android:label="Detail Transaksi"
             android:windowSoftInputMode="stateAlwaysHidden"

@@ -35,6 +35,7 @@ import id.co.akuntansiku.accounting.Account.model.DataCategory;
 import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.transaction.TransactionAdd;
 import id.co.akuntansiku.accounting.transaction.TransactionDetail;
+import id.co.akuntansiku.accounting.transaction.TransactionFailed;
 import id.co.akuntansiku.accounting.transaction.adapter.TransactionAdapter;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
@@ -194,6 +195,13 @@ public class AccountingActivity extends AppCompatActivity {
         if (dataTransactionPendings.size() > 0){
             l_danger.setVisibility(View.VISIBLE);
             t_a_danger.setText("Terdapat data yang belum terkirim ke server");
+            l_danger.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(AccountingActivity.this, TransactionFailed.class);
+                    startActivity(intent);
+                }
+            });
         }
         SharedPreferences sharedPreferences = this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {

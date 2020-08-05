@@ -82,7 +82,7 @@ public class Login extends AppCompatActivity {
         LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
         TextView text_toolbar = findViewById(R.id.text_toolbar);
 
-        text_toolbar.setText("Login Akuntansiku");
+        text_toolbar.setText("Integrasi dengan Akuntansiku");
         button_toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
