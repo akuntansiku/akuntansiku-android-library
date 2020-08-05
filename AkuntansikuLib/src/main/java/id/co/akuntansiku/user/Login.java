@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -34,8 +33,8 @@ public class Login extends AppCompatActivity {
     ProgressBar p_login;
     LinearLayout l_danger;
     TextView t_a_danger, t_1, t_2;
-    LinearLayout l_register, l_welcome;
-    Button b_next;
+    LinearLayout l_welcome;
+    Button b_register, b_next;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,8 +55,8 @@ public class Login extends AppCompatActivity {
         l_danger = findViewById(R.id.a_danger);
         t_a_danger = findViewById(R.id.t_a_danger);
         l_danger.setVisibility(View.GONE);
-        l_register = findViewById(R.id.l_register);
-        l_register.setOnClickListener(new View.OnClickListener() {
+        b_register = findViewById(R.id.l_register);
+        b_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Webview.class);

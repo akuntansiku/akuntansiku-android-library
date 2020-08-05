@@ -96,7 +96,6 @@
         </LinearLayout>
         <LinearLayout
             android:layout_centerHorizontal="true"
-            android:id="@+id/l_register"
             android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/padding"
             android:layout_width="match_parent"
@@ -110,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:text="Belum punya akun Akuntansiku? Silahkan daftar"/>
             <Button
+                android:id="@+id/l_register"
                 android:layout_marginTop="@dimen/padding_separuh"
                 android:elevation="0dp"
                 android:layout_width="match_parent"

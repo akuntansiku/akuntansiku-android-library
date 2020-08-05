@@ -86,13 +86,6 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
             e.printStackTrace();
         }
 
-        holder.l_switch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                company_switch(mData.get(position).getId());
-            }
-        });
-
         SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, 0) == mData.get(position).getId()) {
             holder.i_check.setVisibility(View.VISIBLE);
@@ -138,61 +131,5 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
-    }
-
-    private void company_switch(int id_company) {
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance(context).create(GetDataService.class);
-        retrofit2.Call<ApiResponse> call = service.company_switch(id_company);
-
-        call.enqueue(new retrofit2.Callback<ApiResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                try {
-                    if (response.code() == 200) {
-                        ApiResponse res = response.body();
-                        if (res.getStatus().equals("success")) {
-                            SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, res.getData().getJSONObject("user").getInt("default_company_web"));
-                            editor.putString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, res.getData().getJSONObject("user").getString("role_web"));
-                            editor.putBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, true);
-                            editor.apply();
-
-                            Gson gson = new Gson();
-                            ArrayList<DataAccount> dataAccounts = gson.fromJson(res.getData().getString("account"), new TypeToken<List<DataAccount>>() {}.getType());
-                            ModelAccount modelAccount = new ModelAccount(context);
-                            modelAccount.createAll(dataAccounts);
-
-                            ArrayList<DataCategory> dataCategories = gson.fromJson(res.getData().getString("category"), new TypeToken<List<DataCategory>>() {}.getType());
-                            ModelCategory modelCategory = new ModelCategory(context);
-                            modelCategory.createAll(dataCategories);
-
-                            CurrencyFormater.changeCurrency(context, res.getData().getJSONObject("company").getString("currency"));
-                            Intent intent = new Intent(context, AccountingActivity.class);
-                            context.startActivity(intent);
-                            context.finish();
-                        } else if (res.getStatus().equals("error")) {
-
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                alertDialog.setTitle("Connection Error");
-                alertDialog.setMessage("please check your internet connection");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-        });
     }
 }
