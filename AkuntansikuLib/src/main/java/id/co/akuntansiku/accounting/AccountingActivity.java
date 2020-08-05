@@ -60,7 +60,7 @@ public class AccountingActivity extends AppCompatActivity {
     public static final int DETAIL_TRANSACTION = 2;
     String[] transactionMode = new String[200];
     TextView t_empty;
-    LinearLayout l_back, l_danger;
+    LinearLayout l_back,l_error;
     TextView t_a_danger;
     @SuppressLint("RestrictedApi")
     @Override
@@ -68,8 +68,8 @@ public class AccountingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.akuntansiku_fragment_accounting);
         t_a_danger = findViewById(R.id.t_a_danger);
-        l_danger = findViewById(R.id.a_danger);
-        l_danger.setVisibility(View.GONE);
+        l_error = findViewById(R.id.l_error);
+        l_error.setVisibility(View.GONE);
         l_back = findViewById(R.id.l_back);
         l_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,9 +193,9 @@ public class AccountingActivity extends AppCompatActivity {
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(this);
         ArrayList<DataTransactionPending> dataTransactionPendings = modelTransactionPending.all();
         if (dataTransactionPendings.size() > 0){
-            l_danger.setVisibility(View.VISIBLE);
+            l_error.setVisibility(View.VISIBLE);
             t_a_danger.setText("Terdapat data yang belum terkirim ke server");
-            l_danger.setOnClickListener(new View.OnClickListener() {
+            l_error.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(AccountingActivity.this, TransactionFailed.class);

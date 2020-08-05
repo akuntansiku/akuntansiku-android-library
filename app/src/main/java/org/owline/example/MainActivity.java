@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Akuntansiku.resendData(this);
+        Akuntansiku.resendData(this, null);
         showAccount();
         ArrayList<DataAccount> dataAccounts = Akuntansiku.Account.all(this);
         for (int i = 0; i < dataAccounts.size(); i++){

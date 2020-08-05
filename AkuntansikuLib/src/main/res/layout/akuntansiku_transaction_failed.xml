@@ -10,9 +10,21 @@
         android:orientation="vertical">
         <include layout="@layout/akuntansiku_custom_toolbar"/>
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="1"
             android:id="@+id/r_transaction_failed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <Button
+            android:layout_margin="@dimen/padding"
+            android:id="@+id/b_send_again"
+            android:textAllCaps="false"
+            android:elevation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kirim Data Ulang"
+            app:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/button_primary_akuntansiku"/>
     </LinearLayout>
 
 </RelativeLayout>

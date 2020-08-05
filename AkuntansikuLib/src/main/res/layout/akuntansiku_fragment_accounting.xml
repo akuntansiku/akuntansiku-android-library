@@ -56,11 +56,14 @@
 
         </LinearLayout>
         <include layout="@layout/akuntansiku_item_date_filter"/>
-        <include
-            android:visibility="gone"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/l_error"
             android:layout_margin="@dimen/padding"
-            layout="@layout/akuntansiku_alert_danger"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/akuntansiku_alert_danger"/>
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

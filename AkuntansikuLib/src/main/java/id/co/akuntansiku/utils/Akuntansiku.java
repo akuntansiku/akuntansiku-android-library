@@ -134,7 +134,7 @@ public class Akuntansiku {
             e.printStackTrace();
         }
 
-        resendData(context);
+        resendData(context, null);
     }
 
     public interface DeleteTransactionListener {
@@ -156,7 +156,11 @@ public class Akuntansiku {
         });
     }
 
-    public static void resendData(final Activity context) {
+    public interface ResendTransactionListener {
+        public void onCallback(boolean success);
+    }
+
+    public static void resendData(final Activity context, final ResendTransactionListener listener) {
         if (!checkInitialize(context)) return;
         SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
@@ -177,8 +181,9 @@ public class Akuntansiku {
                             JSONArray jsonArray = res.getData().getJSONArray("transaction");
                             ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
                             modelTransactionPending.clearTransactionPending(jsonArray);
+                            listener.onCallback(true);
                         } else if (res.getStatus().equals("error")) {
-
+                            listener.onCallback(false);
                         }
                     } else if (response.code() == 401) {
                         Helper helper = new Helper();

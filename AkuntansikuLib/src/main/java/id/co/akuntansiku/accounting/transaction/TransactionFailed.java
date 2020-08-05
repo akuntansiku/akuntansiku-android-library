@@ -23,22 +23,43 @@ import id.co.akuntansiku.accounting.transaction.adapter.TransactionAdapter;
 import id.co.akuntansiku.accounting.transaction.adapter.TransactionFailedAdapter;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
+import id.co.akuntansiku.utils.Akuntansiku;
 
 public class TransactionFailed extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     RecyclerView recyclerView;
     ArrayList<DataTransactionPending> dataTransactionPendings;
+    Button b_send_again;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.akuntansiku_transaction_failed);
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(this);
         dataTransactionPendings = modelTransactionPending.all();
-        recyclerView = findViewById(R.id.r_transaction);
+        recyclerView = findViewById(R.id.r_transaction_failed);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        b_send_again = findViewById(R.id.b_send_again);
 
+        showAdapter();
+
+        b_send_again.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Akuntansiku.resendData(TransactionFailed.this, new Akuntansiku.ResendTransactionListener() {
+                    @Override
+                    public void onCallback(boolean success) {
+                        ModelTransactionPending modelTransactionPending = new ModelTransactionPending(TransactionFailed.this);
+                        dataTransactionPendings = modelTransactionPending.all();
+                    }
+                });
+            }
+        });
+    }
+
+    private void showAdapter(){
         TransactionFailedAdapter transactionFailedAdapter = new TransactionFailedAdapter(this, dataTransactionPendings);
         transactionFailedAdapter.setClickListener(new TransactionFailedAdapter.ItemClickListener() {
             @Override
@@ -66,7 +87,6 @@ public class TransactionFailed extends AppCompatActivity {
                     }
                 });
                 alert.show();
-
             }
         });
     }
