@@ -6,8 +6,9 @@ public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_DATABASE_NAME = "AKUNTANSIKU_AKUNTANSIKU";
     public static final int AKUNTANSIKU_DATABASE_VERSION = 1;
 
-    public static String AKUNTANSIKU_BASE_URL = "https://akuntansiku.co.id/";
-    public static String AKUNTANSIKU_TERM_OF_SERVICE = "tos";
+    public static final String AKUNTANSIKU_BASE_URL = "https://akuntansiku.co.id/";
+    public static final String AKUNTANSIKU_TERM_OF_SERVICE = "tos";
+    public static final String AKUNTANSIKU_API_VERSION = "1";
 
     public static final String AKUNTANSIKU_SHARED_KEY = "AKUNTANSIKU_SHARED_KEY";
     public static final String AKUNTANSIKU_URL = "AKUNTANSIKU_URL";

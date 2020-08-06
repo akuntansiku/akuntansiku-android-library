@@ -202,7 +202,8 @@ public class AccountingActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-        }
+        }else l_error.setVisibility(View.GONE);
+
         SharedPreferences sharedPreferences = this.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false)) {
             finish();

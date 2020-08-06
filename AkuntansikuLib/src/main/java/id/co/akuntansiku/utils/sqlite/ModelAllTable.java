@@ -19,7 +19,7 @@ public class ModelAllTable extends SQLiteOpenHelper {
         db.execSQL("create table if not exists " + "model_transaction_pending" + " (" +
                 "code varchar(225) primary key, " +
                 "user_email varchar(225), " +
-                "status varchar(225), " +
+                "status integer, " +
                 "data text, " +
                 "created_at DEFAULT CURRENT_TIMESTAMP);");
 
@@ -36,6 +36,22 @@ public class ModelAllTable extends SQLiteOpenHelper {
                 "id_category integer, " +
                 "archived integer, " +
                 "description text);");
+
+        db.execSQL("create table if not exists " + "activity_log" + " (" +
+                "code varchar(225) primary key, " +
+                "user_email varchar(225), " +
+                "status integer, " +
+                "note text, " +
+                "data text, " +
+                "created_at DEFAULT CURRENT_TIMESTAMP);");
+
+        db.execSQL("create table if not exists " + "error_log" + " (" +
+                "code varchar(225) primary key, " +
+                "user_email varchar(225), " +
+                "status integer, " +
+                "note text, " +
+                "data text, " +
+                "created_at DEFAULT CURRENT_TIMESTAMP);");
     }
 
     @Override

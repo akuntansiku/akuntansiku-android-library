@@ -33,6 +33,7 @@ public class TransactionFailed extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<DataTransactionPending> dataTransactionPendings;
     Button b_send_again;
+    TextView t_empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class TransactionFailed extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         b_send_again = findViewById(R.id.b_send_again);
+        t_empty = findViewById(R.id.t_empty);
 
         showAdapter();
 
@@ -57,9 +59,12 @@ public class TransactionFailed extends AppCompatActivity {
                         if (success) {
                             ModelTransactionPending modelTransactionPending = new ModelTransactionPending(TransactionFailed.this);
                             dataTransactionPendings = modelTransactionPending.all();
-                            Toast.makeText(TransactionFailed.this, "Berhasil mengirim data", Toast.LENGTH_LONG);
+                            showAdapter();
+                            if (dataTransactionPendings.size() == 0)
+                                t_empty.setVisibility(View.VISIBLE);
+                            Toast.makeText(TransactionFailed.this, "Berhasil mengirim data", Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(TransactionFailed.this, "Gagal mengirim data", Toast.LENGTH_LONG);
+                            Toast.makeText(TransactionFailed.this, "Gagal mengirim data", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

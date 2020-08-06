@@ -9,11 +9,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include layout="@layout/akuntansiku_custom_toolbar"/>
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
             android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/r_transaction_failed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+            <TextView
+                android:visibility="gone"
+                android:layout_margin="@dimen/padding"
+                android:id="@+id/t_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="Semua transaksi sudah \nterkirim ke server :)" />
+        </RelativeLayout>
         <Button
             android:layout_margin="@dimen/padding"
             android:id="@+id/b_send_again"
@@ -26,5 +40,7 @@
             android:textColor="@color/colorWhite"
             android:background="@drawable/button_primary_akuntansiku"/>
     </LinearLayout>
+
+
 
 </RelativeLayout>

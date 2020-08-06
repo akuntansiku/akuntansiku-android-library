@@ -30,6 +30,7 @@ public class RetrofitClientInstance {
                         .header("Content-Type", "application/x-www-form-urlencoded")
                         .header("Authorization", sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN_TYPE, "null") + " " + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, "null"))
                         .header("Accept", "application/json")
+                        .header("API-Version", ConfigAkuntansiku.AKUNTANSIKU_API_VERSION)
                         .method(original.method(), original.body())
                         .build();
 
