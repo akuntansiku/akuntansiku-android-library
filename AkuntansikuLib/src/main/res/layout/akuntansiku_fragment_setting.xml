@@ -30,6 +30,25 @@
             android:background="#f1f1f1" />
         <LinearLayout
             android:background="@color/colorWhite"
+            android:id="@+id/l_developer_mode"
+            android:padding="@dimen/padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:fontFamily="@font/ubuntu_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mode Pengembang"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="#f1f1f1" />
+        <LinearLayout
+            android:background="@color/colorWhite"
             android:id="@+id/l_log_out"
             android:padding="@dimen/padding"
             android:layout_width="match_parent"

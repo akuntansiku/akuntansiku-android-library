@@ -2,13 +2,23 @@ package id.co.akuntansiku.accounting.transaction.model;
 
 public class DataTransactionPending {
     String code;
+    int status;
     String user_email;
     String data;
 
-    public DataTransactionPending(String code, String user_email, String data) {
+    public DataTransactionPending(String code, int status, String user_email, String data) {
         this.code = code;
+        this.status = status;
         this.user_email = user_email;
         this.data = data;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getCode() {

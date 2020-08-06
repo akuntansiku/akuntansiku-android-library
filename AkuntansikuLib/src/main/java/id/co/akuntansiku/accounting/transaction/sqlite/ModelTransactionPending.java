@@ -24,6 +24,7 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     private String TABLE_NAME = "model_transaction_pending";
     private Context context;
     private static ModelTransactionPending sInstance;
+    SharedPreferences sharedPreferences;
     /*
         status
         1 = add
@@ -34,6 +35,8 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     public ModelTransactionPending(Context context) {
         super(context, Helper.getDatabaseName(context), null, DATABASE_VERSION);
         this.context = context;
+        sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             this.setWriteAheadLoggingEnabled(true);
         }
@@ -77,12 +80,13 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     public ArrayList<DataTransactionPending> all() {
         ArrayList<DataTransactionPending> listTransaction = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cur = db.rawQuery("select * from " + TABLE_NAME , null);
+        Cursor cur = db.rawQuery("select * from " + TABLE_NAME  +" where user_email = '" + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "") + "'", null);
         int i = 0;
         if (cur.getCount() > 0) cur.moveToFirst();
         while (i < cur.getCount()) {
             DataTransactionPending dataAccount = new DataTransactionPending(
                     cur.getString(cur.getColumnIndex("code")),
+                    cur.getInt(cur.getColumnIndex("status")),
                     cur.getString(cur.getColumnIndex("user_email")),
                     cur.getString(cur.getColumnIndex("data"))
             );
@@ -96,7 +100,6 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     }
 
     public String toString() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("select * from " + TABLE_NAME +" where user_email = '" + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "") + "' order by  status asc" , null);
         int i = 0;

@@ -47,7 +47,7 @@ public class RetrofitClientInstance {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(ConfigAkuntansiku.AKUNTANSIKU_BASE_URL)
+                    .baseUrl(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_URL, ConfigAkuntansiku.AKUNTANSIKU_BASE_URL))
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

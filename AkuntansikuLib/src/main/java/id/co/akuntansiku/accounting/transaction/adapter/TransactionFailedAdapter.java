@@ -40,16 +40,19 @@ public class TransactionFailedAdapter extends RecyclerView.Adapter<TransactionFa
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction, parent, false);
+        View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction_failed, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (!is_loading) {
             holder.t_code.setText(mData.get(position).getCode());
-            holder.t_status.setText("");
-        }
+            if (mData.get(position).getStatus() == 1)
+                holder.t_status.setText("[add]");
+            else if (mData.get(position).getStatus() == 2)
+                holder.t_status.setText("[update]");
+            else if (mData.get(position).getStatus() == 3)
+                holder.t_status.setText("[delete]");
     }
 
     // total number of cells

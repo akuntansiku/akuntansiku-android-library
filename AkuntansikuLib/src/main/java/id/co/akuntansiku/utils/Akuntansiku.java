@@ -128,7 +128,7 @@ public class Akuntansiku {
             data_transaction.put("due_date", due_date);
             data_transaction.put("journal", jsonArray);
 
-            modelTransactionPending.create(code, sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, ""), ConfigAkuntansiku.AKUNTANSIKU_ADD,data_transaction.toString());
+            modelTransactionPending.create(code, sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, ""), ConfigAkuntansiku.AKUNTANSIKU_ADD, data_transaction.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,12 +146,14 @@ public class Akuntansiku {
         RetrofitSend.sendData(activity, true, call, new RetrofitSend.RetrofitSendListener() {
             @Override
             public void onSuccess(JSONObject data) throws JSONException {
-                listener.onCallback(true);
+                if (listener != null)
+                    listener.onCallback(true);
             }
 
             @Override
             public void onError(ApiResponse.Meta meta) {
-                listener.onCallback(false);
+                if (listener != null)
+                    listener.onCallback(false);
             }
         });
     }
@@ -181,9 +183,11 @@ public class Akuntansiku {
                             JSONArray jsonArray = res.getData().getJSONArray("transaction");
                             ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
                             modelTransactionPending.clearTransactionPending(jsonArray);
-                            listener.onCallback(true);
+                            if (listener != null)
+                                listener.onCallback(true);
                         } else if (res.getStatus().equals("error")) {
-                            listener.onCallback(false);
+                            if (listener != null)
+                                listener.onCallback(false);
                         }
                     } else if (response.code() == 401) {
                         Helper helper = new Helper();
@@ -203,7 +207,8 @@ public class Akuntansiku {
 
             @Override
             public void onFailure(retrofit2.Call<ApiResponse> call, Throwable t) {
-
+                if (listener != null)
+                    listener.onCallback(false);
             }
         });
     }

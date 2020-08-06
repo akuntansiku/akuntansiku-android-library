@@ -6,10 +6,11 @@ public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_DATABASE_NAME = "AKUNTANSIKU_AKUNTANSIKU";
     public static final int AKUNTANSIKU_DATABASE_VERSION = 1;
 
-    public static String AKUNTANSIKU_BASE_URL = "https://dev.akuntansiku.co.id/";
+    public static String AKUNTANSIKU_BASE_URL = "https://akuntansiku.co.id/";
     public static String AKUNTANSIKU_TERM_OF_SERVICE = "tos";
 
     public static final String AKUNTANSIKU_SHARED_KEY = "AKUNTANSIKU_SHARED_KEY";
+    public static final String AKUNTANSIKU_URL = "AKUNTANSIKU_URL";
     public static final String AKUNTANSIKU_IS_LOGIN = "AKUNTANSIKU_IS_LOGIN";
     public static final String AKUNTANSIKU_SETTING_CURRENCY = "AKUNTANSIKU_SETTING_CURRENCY";
     public static final String AKUNTANSIKU_SETTING_CURRENCY_COUNTRY = "AKUNTANSIKU_SETTING_CURRENCY_COUNTRY";

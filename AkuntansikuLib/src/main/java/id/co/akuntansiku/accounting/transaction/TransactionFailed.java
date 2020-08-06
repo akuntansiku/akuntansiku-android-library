@@ -6,10 +6,13 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,16 +54,33 @@ public class TransactionFailed extends AppCompatActivity {
                 Akuntansiku.resendData(TransactionFailed.this, new Akuntansiku.ResendTransactionListener() {
                     @Override
                     public void onCallback(boolean success) {
-                        ModelTransactionPending modelTransactionPending = new ModelTransactionPending(TransactionFailed.this);
-                        dataTransactionPendings = modelTransactionPending.all();
+                        if (success) {
+                            ModelTransactionPending modelTransactionPending = new ModelTransactionPending(TransactionFailed.this);
+                            dataTransactionPendings = modelTransactionPending.all();
+                            Toast.makeText(TransactionFailed.this, "Berhasil mengirim data", Toast.LENGTH_LONG);
+                        }else{
+                            Toast.makeText(TransactionFailed.this, "Gagal mengirim data", Toast.LENGTH_LONG);
+                        }
                     }
                 });
+            }
+        });
+
+        LinearLayout button_toolbar = findViewById(R.id.button_toolbar);
+        TextView text_toolbar = findViewById(R.id.text_toolbar);
+
+        text_toolbar.setText("Daftar Transaksi Gagal");
+        button_toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
 
     private void showAdapter(){
         TransactionFailedAdapter transactionFailedAdapter = new TransactionFailedAdapter(this, dataTransactionPendings);
+        recyclerView.setAdapter(transactionFailedAdapter);
         transactionFailedAdapter.setClickListener(new TransactionFailedAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
@@ -86,6 +106,7 @@ public class TransactionFailed extends AppCompatActivity {
                         clipboard.setPrimaryClip(clip);
                     }
                 });
+                alert.setView(inputnya);
                 alert.show();
             }
         });

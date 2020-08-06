@@ -50,6 +50,11 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".setting.developer.DeveloperActivity"
+            android:label="Mode Pengembang"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".setting.SettingActivity"
             android:label="Pengaturan"
             android:windowSoftInputMode="stateAlwaysHidden"
