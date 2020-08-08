@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.transaction.adapter;
+package id.co.akuntansiku.utils.log.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,20 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import java.util.ArrayList;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
-import id.co.akuntansiku.utils.CurrencyFormater;
-import id.co.akuntansiku.utils.Helper;
-
-import static id.co.akuntansiku.utils.Helper.dateConverter;
-import static id.co.akuntansiku.utils.Helper.timeConverter;
+import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
+import id.co.akuntansiku.utils.log.model.DataActivityLog;
 
 
-public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
-    public ArrayList<DataTransaction> mData = new ArrayList<>();
+public class ActivityLogAdapter extends RecyclerView.Adapter<ActivityLogAdapter.ViewHolder> {
+    public ArrayList<DataActivityLog> mData = new ArrayList<>();
     public LayoutInflater mInflater;
     public ItemClickListener mClickListener;
     String[] transactionMode = new String[200];
@@ -30,7 +25,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     boolean is_loading = true;
 
     // data is passed into the constructor
-    public TransactionAdapter(Context context, ArrayList<DataTransaction> data, String[] transactionMode, boolean is_loading) {
+    public ActivityLogAdapter(Context context, ArrayList<DataActivityLog> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.context = context;
@@ -41,24 +36,22 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (is_loading){
-            View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction_loading, parent, false);
-            return new ViewHolder(view);
-        }else {
-            View view = mInflater.inflate(R.layout.akuntansiku_adapter_transaction, parent, false);
-            return new ViewHolder(view);
-        }
+        View view = mInflater.inflate(R.layout.akuntansiku_adapter_activity_log, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (!is_loading) {
-            holder.t_mode.setText(transactionMode[mData.get(position).getMode() + 1]);
-            holder.t_created_at.setText(dateConverter(mData.get(position).getCreated_at()));
-            holder.t_time.setText(timeConverter(mData.get(position).getCreated_at()));
-            holder.t_note.setText(mData.get(position).getNote());
-            holder.t_nominal.setText(CurrencyFormater.cur(context, Helper.debitToNominal(mData.get(position).getJournal())));
-        }
+        holder.t_code.setText(mData.get(position).getCode());
+        holder.t_note.setText(mData.get(position).getNote());
+        holder.t_date.setText(mData.get(position).getCreated_at());
+            if (mData.get(position).getStatus() == 1)
+                holder.t_status.setText("[add]");
+            else if (mData.get(position).getStatus() == 2)
+                holder.t_status.setText("[update]");
+            else if (mData.get(position).getStatus() == 3)
+                holder.t_status.setText("[delete]");
+            else holder.t_status.setText("[]");
     }
 
     // total number of cells
@@ -69,19 +62,17 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView t_mode;
-        TextView t_created_at;
+        TextView t_code;
+        TextView t_status;
         TextView t_note;
-        TextView t_nominal;
-        TextView t_time;
+        TextView t_date;
 
         ViewHolder(View itemView) {
             super(itemView);
-            t_mode = itemView.findViewById(R.id.t_mode);
-            t_created_at = itemView.findViewById(R.id.t_created_at);
+            t_code = itemView.findViewById(R.id.t_code);
+            t_status = itemView.findViewById(R.id.t_status);
             t_note = itemView.findViewById(R.id.t_note);
-            t_nominal = itemView.findViewById(R.id.t_nominal);
-            t_time = itemView.findViewById(R.id.t_time);
+            t_date = itemView.findViewById(R.id.t_date);
             itemView.setOnClickListener(this);
         }
 

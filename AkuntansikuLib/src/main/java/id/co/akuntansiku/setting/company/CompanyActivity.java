@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.Account.model.DataCategory;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataCategory;
+import id.co.akuntansiku.accounting.account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.setting.company.adapter.CompanyAdapter;
 import id.co.akuntansiku.setting.company.model.DataCompany;

@@ -1,6 +1,5 @@
 package org.owline.example;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.AccountingActivity;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
+import id.co.akuntansiku.accounting.product.DataProduct;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.Akuntansiku;
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void tambah() {
         int random = new Random().nextInt((60 - 10) + 1) + 10;
-        String created_at = "2020-07-02 12:"+random+":01";
+        String created_at = "2020-08-07 12:"+random+":01";
         String contact_name = "Didit Sepiyanto";
         String contact_email = "sepiyantodidit@gmail.com";
         String contact_address = "Surabaya";
@@ -61,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         data_journal.add(new DataTransaction.Journal("1-10703", 0.0, 10000.0));
         data_journal.add(new DataTransaction.Journal("1-10502", 10000.0, 0.0));
 
-        Akuntansiku.addTransaction(this, dataContact, created_at, "", Akuntansiku.PENJUALAN_KASIR_PINTAR, "cash", "", "", false, "", "", data_journal );
+        Akuntansiku.addTransaction(this, dataContact, created_at, "", Akuntansiku.PENJUALAN_KASIR_PINTAR, "cash", "", "", false, "", "", data_journal,
+                6, new ArrayList<DataProduct>(), new DataTransaction.Delivery(), "" );
     }
 
     @Override

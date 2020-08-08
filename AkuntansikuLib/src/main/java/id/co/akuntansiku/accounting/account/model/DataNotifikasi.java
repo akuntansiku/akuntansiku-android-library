@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account.model;
+package id.co.akuntansiku.accounting.account.model;
 
 /**
  * Created by diditsepiyanto on 11/10/16.

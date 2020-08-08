@@ -252,6 +252,16 @@
                 android:layout_height="2dp"/>
 
             <Button
+                android:id="@+id/button_activity_log"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Aktivitas"
+                app:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/button_primary_outline_akuntansiku"/>
+
+            <Button
                 android:visibility="gone"
                 android:id="@+id/button_save"
                 android:layout_marginTop="50dp"

@@ -2,6 +2,8 @@ package id.co.akuntansiku.accounting.transaction.model;
 
 import java.util.List;
 
+import id.co.akuntansiku.accounting.product.DataProduct;
+
 public class DataTransaction {
     int id_;
     String code;
@@ -19,25 +21,12 @@ public class DataTransaction {
     String parent_code;
     String due_date;
     List<Journal> journal;
+    int invoice_status;
+    List<DataProduct> products;
+    Delivery delivery;
+    String recipient_address;
 
     public DataTransaction() {
-    }
-
-    public DataTransaction(int id_, String code, int mode, String note, int maker_id, int contact_id, String attachment, String created_at, String app_source, String payment_method, String tag, String cost_number, boolean is_draft, String parent_code) {
-        this.id_ = id_;
-        this.code = code;
-        this.mode = mode;
-        this.note = note;
-        this.maker_id = maker_id;
-        this.contact_id = contact_id;
-        this.attachment = attachment;
-        this.created_at = created_at;
-        this.app_source = app_source;
-        this.payment_method = payment_method;
-        this.tag = tag;
-        this.cost_number = cost_number;
-        this.is_draft = is_draft;
-        this.parent_code = parent_code;
     }
 
     public int getId_() {
@@ -168,7 +157,66 @@ public class DataTransaction {
         this.journal = journal;
     }
 
+    public int getInvoice_status() {
+        return invoice_status;
+    }
 
+    public void setInvoice_status(int invoice_status) {
+        this.invoice_status = invoice_status;
+    }
+
+    public List<DataProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<DataProduct> products) {
+        this.products = products;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getRecipient_address() {
+        return recipient_address;
+    }
+
+    public void setRecipient_address(String recipient_address) {
+        this.recipient_address = recipient_address;
+    }
+
+    public static class Delivery{
+        String courier_name;
+        String receipt_number;
+
+        public Delivery() {
+        }
+
+        public Delivery(String courier_name, String receipt_number) {
+            this.courier_name = courier_name;
+            this.receipt_number = receipt_number;
+        }
+
+        public String getCourier_name() {
+            return courier_name;
+        }
+
+        public void setCourier_name(String courier_name) {
+            this.courier_name = courier_name;
+        }
+
+        public String getReceipt_number() {
+            return receipt_number;
+        }
+
+        public void setReceipt_number(String receipt_number) {
+            this.receipt_number = receipt_number;
+        }
+    }
 
     public static class Journal{
         int id;

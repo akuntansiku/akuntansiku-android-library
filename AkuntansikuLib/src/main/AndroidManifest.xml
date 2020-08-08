@@ -9,7 +9,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".accounting.Account.Account"
+            android:name=".accounting.account.Account"
             android:label="Daftar Akun"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -64,6 +64,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".setting.profile.Profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.log.ActivityLog"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".report.Report"

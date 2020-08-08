@@ -1,6 +1,5 @@
-package id.co.akuntansiku.accounting.transaction.sqlite;
+package id.co.akuntansiku.utils.log.sqlite;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,14 +17,14 @@ import java.util.ArrayList;
 import id.co.akuntansiku.accounting.transaction.model.DataTransactionPending;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.Helper;
-import id.co.akuntansiku.utils.log.sqlite.ModelActivityLog;
+import id.co.akuntansiku.utils.log.model.DataActivityLog;
 
-public class ModelTransactionPending extends SQLiteOpenHelper {
+public class ModelActivityLog extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = ConfigAkuntansiku.AKUNTANSIKU_DATABASE_VERSION;
-    private String TABLE_NAME = "model_transaction_pending";
-    private Activity context;
-    private static ModelTransactionPending sInstance;
+    private String TABLE_NAME = "activity_log";
+    private Context context;
+    private static ModelActivityLog sInstance;
     SharedPreferences sharedPreferences;
     /*
         status
@@ -34,7 +33,7 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
         3 = delete
      */
 
-    public ModelTransactionPending(Activity context) {
+    public ModelActivityLog(Context context) {
         super(context, Helper.getDatabaseName(context), null, DATABASE_VERSION);
         this.context = context;
         sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
@@ -44,9 +43,9 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
         }
     }
 
-    public static synchronized ModelTransactionPending getInstance(Activity context) {
+    public static synchronized ModelActivityLog getInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new ModelTransactionPending(context);
+            sInstance = new ModelActivityLog(context.getApplicationContext());
         }
         return sInstance;
     }
@@ -68,32 +67,32 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
 
     }
 
-    public void create(String code, String user_email, int status, String data_transaction) {
+    public void create(String code, String user_email, int status, String note, String data_transaction) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues data = new ContentValues();
         data.put("code", code);
         data.put("user_email", user_email);
         data.put("status", status);
+        data.put("note", note);
         data.put("data", data_transaction);
         db.insert(TABLE_NAME, null, data);
         db.close();
-
-        ModelActivityLog modelActivityLog = new ModelActivityLog(context);
-        modelActivityLog.create(code, user_email, status, "Add Transaction", data_transaction);
     }
 
-    public ArrayList<DataTransactionPending> all() {
-        ArrayList<DataTransactionPending> listTransaction = new ArrayList<>();
+    public ArrayList<DataActivityLog> all() {
+        ArrayList<DataActivityLog> listTransaction = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cur = db.rawQuery("select * from " + TABLE_NAME  +" where user_email = '" + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "") + "'", null);
+        Cursor cur = db.rawQuery("select * from " + TABLE_NAME  +" where user_email = '" + sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, "") + "' order by code desc", null);
         int i = 0;
         if (cur.getCount() > 0) cur.moveToFirst();
         while (i < cur.getCount()) {
-            DataTransactionPending dataAccount = new DataTransactionPending(
+            DataActivityLog dataAccount = new DataActivityLog(
                     cur.getString(cur.getColumnIndex("code")),
                     cur.getInt(cur.getColumnIndex("status")),
+                    cur.getString(cur.getColumnIndex("note")),
                     cur.getString(cur.getColumnIndex("user_email")),
-                    cur.getString(cur.getColumnIndex("data"))
+                    cur.getString(cur.getColumnIndex("data")),
+                    cur.getString(cur.getColumnIndex("created_at"))
             );
             listTransaction.add(dataAccount);
             cur.moveToNext();
@@ -133,7 +132,6 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
     }
 
     public void clearTransactionPending(JSONArray jsonArray) {
-        ModelActivityLog modelActivityLog = new ModelActivityLog(context);
         try {
             for (int i = 0; i < jsonArray.length(); i++){
                 delete(jsonArray.getString(i));
@@ -141,9 +139,6 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-
     }
 
     public boolean delete(String code) {

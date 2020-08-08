@@ -44,14 +44,6 @@ public class ModelAllTable extends SQLiteOpenHelper {
                 "note text, " +
                 "data text, " +
                 "created_at DEFAULT CURRENT_TIMESTAMP);");
-
-        db.execSQL("create table if not exists " + "error_log" + " (" +
-                "code varchar(225) primary key, " +
-                "user_email varchar(225), " +
-                "status integer, " +
-                "note text, " +
-                "data text, " +
-                "created_at DEFAULT CURRENT_TIMESTAMP);");
     }
 
     @Override

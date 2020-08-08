@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account.adapter;
+package id.co.akuntansiku.accounting.account.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.model.DataNotifikasi;
+import id.co.akuntansiku.accounting.account.model.DataNotifikasi;
 
 public class NotifikasiAccountAdapter extends ArrayAdapter<DataNotifikasi> {
     private ArrayList<DataNotifikasi> inputData;

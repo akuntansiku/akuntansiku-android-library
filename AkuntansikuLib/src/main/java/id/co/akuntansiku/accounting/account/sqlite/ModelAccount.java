@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account.sqlite;
+package id.co.akuntansiku.accounting.account.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
 import id.co.akuntansiku.utils.Helper;
 

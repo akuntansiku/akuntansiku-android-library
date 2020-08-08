@@ -1,10 +1,7 @@
 package id.co.akuntansiku.setting.company.adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,29 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.Account;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.Account.model.DataCategory;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
-import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.setting.company.model.DataCompany;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
-import id.co.akuntansiku.utils.CurrencyFormater;
-import id.co.akuntansiku.utils.retrofit.GetDataService;
-import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
-import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> {
     public ArrayList<DataCompany> mData = new ArrayList<>();

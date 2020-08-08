@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-
-import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,14 +13,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
-import id.co.akuntansiku.accounting.Account.adapter.AccountSpinner;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.Account.model.DataCategory;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
+import id.co.akuntansiku.accounting.account.adapter.AccountSpinner;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataCategory;
+import id.co.akuntansiku.accounting.account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.account.sqlite.ModelCategory;
 import id.co.akuntansiku.accounting.AccountingActivity;
-import id.co.akuntansiku.accounting.transaction.TransactionAdd;
+import id.co.akuntansiku.accounting.product.DataProduct;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.accounting.transaction.sqlite.ModelTransactionPending;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
@@ -67,7 +62,8 @@ public class Akuntansiku {
     }
 
     public static void addTransaction(Activity context, DataContact dataContact, String created_at, String note, int mode, String payment_method,
-                                      String tag, String cost_number, boolean is_draft, String due_date, String parent_code, ArrayList<DataTransaction.Journal> journals) {
+                                      String tag, String cost_number, boolean is_draft, String due_date, String parent_code, ArrayList<DataTransaction.Journal> journals,
+                                      int invoice_status, ArrayList<DataProduct> dataProducts, DataTransaction.Delivery delivery, String recipient_address) {
         if (!checkInitialize(context)) return;
         SharedPreferences sharedPreferences = context.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean(ConfigAkuntansiku.AKUNTANSIKU_IS_LOGIN, false))
@@ -113,8 +109,31 @@ public class Akuntansiku {
                 data_contact.put("no_hp", dataContact.getNo_hp());
             }
 
-            data_transaction.put("contact", data_contact);
+            JSONArray jsonProduct = null;
+            if(dataProducts != null){
+                jsonProduct = new JSONArray();
+                for (int i = 0; i < dataProducts.size(); i++) {
+                    JSONObject product = new JSONObject();
+                    product.put("code", dataProducts.get(i).getCode());
+                    product.put("name", dataProducts.get(i).getName());
+                    product.put("category", dataProducts.get(i).getCategory());
+                    product.put("quantity", dataProducts.get(i).getQuantity());
+                    product.put("discount", dataProducts.get(i).getDiscount());
+                    product.put("weight", dataProducts.get(i).getWeight());
+                    product.put("unit", dataProducts.get(i).getUnit());
+                    product.put("note", dataProducts.get(i).getNote());
+                    product.put("subtotal", dataProducts.get(i).getSubtotal());
+                    product.put("type", dataProducts.get(i).getType());
+                    jsonProduct.put(product);
+                }
+            }
+
+            JSONObject jsonDelivery = new JSONObject();
+            jsonDelivery.put("courier_name", delivery.getCourier_name() == null ? "" : delivery.getCourier_name());
+            jsonDelivery.put("receipt_number", delivery.getReceipt_number() == null ? "" : delivery.getReceipt_number());
+
             data_transaction.put("code", code);
+            data_transaction.put("contact", data_contact == null ? JSONObject.NULL : data_contact);
             data_transaction.put("mode", mode);
             data_transaction.put("note", note);
             data_transaction.put("user_id", user_id);
@@ -127,6 +146,10 @@ public class Akuntansiku {
             data_transaction.put("parent_code", parent_code);
             data_transaction.put("due_date", due_date);
             data_transaction.put("journal", jsonArray);
+            data_transaction.put("invoice_status", invoice_status);
+            data_transaction.put("products", jsonProduct == null ? JSONObject.NULL : jsonProduct);
+            data_transaction.put("delivery", jsonDelivery);
+            data_transaction.put("recipient_address", recipient_address);
 
             modelTransactionPending.create(code, sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, ""), ConfigAkuntansiku.AKUNTANSIKU_ADD, data_transaction.toString());
 
@@ -183,8 +206,11 @@ public class Akuntansiku {
                             JSONArray jsonArray = res.getData().getJSONArray("transaction");
                             ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
                             modelTransactionPending.clearTransactionPending(jsonArray);
-                            if (listener != null)
-                                listener.onCallback(true);
+                            if (listener != null){
+                                if (jsonArray.length() > 0)
+                                    listener.onCallback(true);
+                                else listener.onCallback(false);
+                            }
                         } else if (res.getStatus().equals("error")) {
                             if (listener != null)
                                 listener.onCallback(false);

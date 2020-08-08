@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account.model;
+package id.co.akuntansiku.accounting.account.model;
 
 public class DataCategory {
     int id;

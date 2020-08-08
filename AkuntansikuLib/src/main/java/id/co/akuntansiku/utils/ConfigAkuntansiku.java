@@ -32,8 +32,8 @@ public class ConfigAkuntansiku {
     public static final String AKUNTANSIKU_SCOPE = "AKUNTANSIKU_SCOPE";
     public static final String AKUNTANSIKU_APP_NAME = "AKUNTANSIKU_APP_NAME";
 
-    public static final String AKUNTANSIKU_ADD = "1";
-    public static final String AKUNTANSIKU_UPDATE = "2";
-    public static final String AKUNTANSIKU_DELETE = "3";
+    public static final int AKUNTANSIKU_ADD = 1;
+    public static final int AKUNTANSIKU_UPDATE = 2;
+    public static final int AKUNTANSIKU_DELETE = 3;
 
 }

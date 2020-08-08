@@ -1,11 +1,10 @@
-package id.co.akuntansiku.accounting.Account;
+package id.co.akuntansiku.accounting.account;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,17 +32,14 @@ import java.util.List;
 import java.util.Random;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.adapter.AccountAdapter;
-import id.co.akuntansiku.accounting.Account.adapter.NotifikasiAccountAdapter;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.Account.model.DataCategory;
-import id.co.akuntansiku.accounting.Account.model.DataNotifikasi;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelAccount;
-import id.co.akuntansiku.accounting.Account.sqlite.ModelCategory;
-import id.co.akuntansiku.accounting.AccountingActivity;
+import id.co.akuntansiku.accounting.account.adapter.AccountAdapter;
+import id.co.akuntansiku.accounting.account.adapter.NotifikasiAccountAdapter;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataCategory;
+import id.co.akuntansiku.accounting.account.model.DataNotifikasi;
+import id.co.akuntansiku.accounting.account.sqlite.ModelAccount;
+import id.co.akuntansiku.accounting.account.sqlite.ModelCategory;
 import id.co.akuntansiku.utils.ComingSoon;
-import id.co.akuntansiku.utils.CustomToast;
-import id.co.akuntansiku.utils.Helper;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.RetrofitSend;

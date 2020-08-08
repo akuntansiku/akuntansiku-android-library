@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import id.co.akuntansiku.accounting.AccountingActivity;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
+import id.co.akuntansiku.utils.model.DataPreference;
 import id.co.akuntansiku.utils.retrofit.GetDataService;
 import id.co.akuntansiku.utils.retrofit.RetrofitClientInstance;
 import id.co.akuntansiku.utils.retrofit.RetrofitSend;
@@ -64,6 +65,19 @@ public class Helper {
         try {
             Date newDate=spf.parse(date);
             spf= new SimpleDateFormat("dd MMM yyyy");
+            date = spf.format(newDate);
+            return  date ;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  "";
+    }
+
+    public static String timeConverter(String date){
+        SimpleDateFormat spf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss:SSS");
+        try {
+            Date newDate=spf.parse(date);
+            spf= new SimpleDateFormat("hh:mm:ss");
             date = spf.format(newDate);
             return  date ;
         }catch (Exception e){
@@ -225,5 +239,53 @@ public class Helper {
         });
     }
 
+
+    public static DataPreference getPreference(Activity activity){
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(ConfigAkuntansiku.AKUNTANSIKU_SHARED_KEY, Context.MODE_PRIVATE);
+        DataPreference dataPreference = new DataPreference();
+        dataPreference.setAKUNTANSIKU_API_TOKEN(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN, ""));
+        dataPreference.setAKUNTANSIKU_API_REFRESH_TOKEN(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_REFRESH_TOKEN, ""));
+        dataPreference.setAKUNTANSIKU_API_TOKEN_TYPE(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_API_TOKEN_TYPE, ""));
+
+        dataPreference.setAKUNTANSIKU_USER_ID(sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_ID, 0));
+        dataPreference.setAKUNTANSIKU_USER_NAME(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_NAME, ""));
+        dataPreference.setAKUNTANSIKU_USER_EMAIL(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_EMAIL, ""));
+        dataPreference.setAKUNTANSIKU_USER_ROLE(sharedPreferences.getString(ConfigAkuntansiku.AKUNTANSIKU_USER_ROLE, ""));
+        dataPreference.setAKUNTANSIKU_USER_DEFAULT_COMPANY_WEB(sharedPreferences.getInt(ConfigAkuntansiku.AKUNTANSIKU_USER_DEFAULT_COMPANY_WEB, 0));
+
+        return dataPreference;
+    }
+
+    public static String formatString(String text){
+
+        StringBuilder json = new StringBuilder();
+        String indentString = "";
+
+        for (int i = 0; i < text.length(); i++) {
+            char letter = text.charAt(i);
+            switch (letter) {
+                case '{':
+                case '[':
+                    json.append("\n" + indentString + letter + "\n");
+                    indentString = indentString + "\t";
+                    json.append(indentString);
+                    break;
+                case '}':
+                case ']':
+                    indentString = indentString.replaceFirst("\t", "");
+                    json.append("\n" + indentString + letter);
+                    break;
+                case ',':
+                    json.append(letter + "\n" + indentString);
+                    break;
+
+                default:
+                    json.append(letter);
+                    break;
+            }
+        }
+
+        return json.toString();
+    }
 
 }

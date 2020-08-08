@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
     ProgressBar p_login;
     LinearLayout l_danger;
     TextView t_a_danger, t_1, t_2;
-    LinearLayout l_welcome;
+    LinearLayout l_welcome, l_login;
     Button b_register, b_next;
 
     @Override
@@ -66,11 +66,13 @@ public class Login extends AppCompatActivity {
         t_1 = findViewById(R.id.t_1);
         t_2 = findViewById(R.id.t_2);
         l_welcome = findViewById(R.id.l_welcome);
+        l_login = findViewById(R.id.l_login);
         b_next = findViewById(R.id.b_next);
         b_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 l_welcome.setVisibility(View.GONE);
+                l_login.setVisibility(View.VISIBLE);
             }
         });
 

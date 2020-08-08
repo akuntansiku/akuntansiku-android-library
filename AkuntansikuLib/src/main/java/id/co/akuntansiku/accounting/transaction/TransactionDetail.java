@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 
 import id.co.akuntansiku.R;
 import id.co.akuntansiku.accounting.AccountingActivity;
+import id.co.akuntansiku.accounting.product.DataProduct;
 import id.co.akuntansiku.accounting.transaction.model.DataTransaction;
 import id.co.akuntansiku.master_data.contact.model.DataContact;
 import id.co.akuntansiku.utils.ConfigAkuntansiku;
@@ -41,17 +43,19 @@ import id.co.akuntansiku.utils.retrofit.model.ApiResponse;
 
 public class TransactionDetail extends AppCompatActivity {
     DataTransaction dataTransaction;
-    TextView t_transaction_mode, t_date, t_contact_name, t_due_date, t_note;
+    TextView t_transaction_mode, t_date, t_contact_name, t_due_date, t_note, t_courier_name, t_receipt_number,
+            t_recipient_address;
     DataContact dataContact;
     Button b_delete, b_edit;
     RelativeLayout rel_loading;
-    LinearLayout l_journal;
+    LinearLayout l_journal, l_product;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.akuntansiku_transaction_detail);
         l_journal = findViewById(R.id.l_journal);
+        l_product = findViewById(R.id.l_product);
         rel_loading = findViewById(R.id.rel_loading);
         rel_loading.setVisibility(View.VISIBLE);
         t_transaction_mode = findViewById(R.id.t_transaction_mode);
@@ -59,6 +63,9 @@ public class TransactionDetail extends AppCompatActivity {
         t_contact_name = findViewById(R.id.t_contact_name);
         t_due_date = findViewById(R.id.t_due_date);
         t_note = findViewById(R.id.t_note);
+        t_courier_name = findViewById(R.id.t_courier_name);
+        t_receipt_number = findViewById(R.id.t_receipt_number);
+        t_recipient_address = findViewById(R.id.t_recipient_address);
         b_edit  = findViewById(R.id.b_edit);
         b_delete = findViewById(R.id.b_delete);
 
@@ -129,11 +136,33 @@ public class TransactionDetail extends AppCompatActivity {
         }
     }
 
+    private void setProduct(DataTransaction dataTransaction){
+        if (dataTransaction.getProducts() == null)
+            return;
+        for (int i = 0; i < dataTransaction.getProducts().size(); i++){
+            DataProduct dataProduct = dataTransaction.getProducts().get(i);
+            LayoutInflater inflater = LayoutInflater.from(TransactionDetail.this);
+            LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.akuntansiku_item_product, null, false);
+            TextView t_name = layout.findViewById(R.id.t_name);
+            TextView t_quantity = layout.findViewById(R.id.t_quantity);
+            TextView t_subtotal = layout.findViewById(R.id.t_subtotal);
+            t_name.setText(dataProduct.getName());
+            l_product.addView(layout);
+
+        }
+    }
+
+    private void setDelivery(DataTransaction dataTransaction){
+        t_courier_name.setText(dataTransaction.getDelivery().getCourier_name());
+        t_receipt_number.setText(dataTransaction.getDelivery().getReceipt_number());
+    }
+
     private void set_text(){
         t_transaction_mode.setText("mode " + dataTransaction.getMode());
         t_date.setText(Helper.dateConverter(dataTransaction.getCreated_at()));
         t_note.setText(dataTransaction.getNote());
         t_due_date.setText(dataTransaction.getDue_date());
+        t_recipient_address.setText(dataTransaction.getRecipient_address());
     }
 
     private void get_transaction_detail(String code) {
@@ -146,6 +175,8 @@ public class TransactionDetail extends AppCompatActivity {
                 dataTransaction = gson.fromJson(data.getString("transaction"), new TypeToken<DataTransaction>(){}.getType());
                 set_text();
                 setJournal(dataTransaction);
+                setProduct(dataTransaction);
+                setDelivery(dataTransaction);
                 get_contact_detail(dataTransaction.getContact_id());
             }
 

@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
-                    android:layout_margin="@dimen/padding"
+                    android:padding="@dimen/padding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -114,12 +114,93 @@
                             android:layout_height="wrap_content"
                             android:text=""/>
                     </LinearLayout>
-                    <include layout="@layout/akuntansiku_item_journal"/>
+
                     <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/l_journal"
+                        android:layout_marginBottom="@dimen/padding"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Produk"/>
+                        <LinearLayout
+                            android:layout_marginTop="@dimen/padding_separuh"
+                            android:background="@drawable/button_primary_outline_akuntansiku"
+                            android:orientation="vertical"
+                            android:id="@+id/l_product"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Kurir"/>
+                        <TextView
+                            android:id="@+id/t_courier_name"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+                        <TextView
+                            android:id="@+id/t_receipt_number"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginBottom="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Alamat Penerima"/>
+                        <TextView
+                            android:id="@+id/t_recipient_address"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorBlack"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Jurnal"/>
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/padding_separuh"
+                        android:background="@drawable/button_primary_outline_akuntansiku"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <include layout="@layout/akuntansiku_item_journal"/>
+                        <LinearLayout
+                            android:layout_marginBottom="@dimen/padding"
+                            android:orientation="vertical"
+                            android:id="@+id/l_journal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
                 </LinearLayout>
             </ScrollView>

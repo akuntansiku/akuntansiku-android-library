@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account.adapter;
+package id.co.akuntansiku.accounting.account.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
-import id.co.akuntansiku.accounting.Account.model.DataCategory;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataCategory;
 import id.co.akuntansiku.utils.CurrencyFormater;
 
 public class AccountAdapter extends ArrayAdapter<DataAccount> {

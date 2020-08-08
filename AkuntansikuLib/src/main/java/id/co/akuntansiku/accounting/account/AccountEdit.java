@@ -1,4 +1,4 @@
-package id.co.akuntansiku.accounting.Account;
+package id.co.akuntansiku.accounting.account;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import id.co.akuntansiku.R;
-import id.co.akuntansiku.accounting.Account.model.DataAccount;
+import id.co.akuntansiku.accounting.account.model.DataAccount;
 
 public class AccountEdit extends AppCompatActivity {
     EditText nama_akun;

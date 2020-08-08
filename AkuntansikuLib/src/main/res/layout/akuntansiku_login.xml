@@ -9,117 +9,125 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/l_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding">
-            <TextView
-                android:layout_marginBottom="@dimen/padding"
-                android:textSize="16sp"
-                android:fontFamily="@font/lato_bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Masukkan email dan password untuk login. Jika belum memiliki akun aplikasi Akuntansiku silahkan klik tombol Daftar"/>
-            <include layout="@layout/akuntansiku_alert_danger"/>
+            android:orientation="vertical">
             <LinearLayout
-                android:layout_marginTop="@dimen/padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/padding">
                 <TextView
-                    android:fontFamily="@font/lato"
-                    android:textColor="@color/colorBlackTwo"
+                    android:layout_marginBottom="@dimen/padding"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/lato_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email"/>
-                <EditText
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/t_email"
-                    android:fontFamily="@font/lato"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/padding_triple"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:fontFamily="@font/lato"
-                    android:textColor="@color/colorBlackTwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Password"/>
-                <EditText
-                    android:inputType="textPassword"
-                    android:id="@+id/t_password"
-                    android:fontFamily="@font/lato"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_marginTop="@dimen/padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                    android:text="Masukkan email dan password untuk login. Jika belum memiliki akun aplikasi Akuntansiku silahkan klik tombol Daftar"/>
+                <include layout="@layout/akuntansiku_alert_danger"/>
                 <LinearLayout
+                    android:layout_marginTop="@dimen/padding"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <Button
-                        android:elevation="0dp"
-                        android:id="@+id/button_login"
+                    <TextView
+                        android:fontFamily="@font/lato"
+                        android:textColor="@color/colorBlackTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="LOGIN"
-                        app:fontFamily="@font/montserrat_bold"
-                        android:textColor="@color/colorWhite"
-                        android:background="@drawable/button_primary_akuntansiku"/>
+                        android:text="Email"/>
+                    <EditText
+                        android:inputType="textEmailAddress"
+                        android:id="@+id/t_email"
+                        android:fontFamily="@font/lato"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="" />
                 </LinearLayout>
 
-                <ProgressBar
-                    android:visibility="gone"
-                    android:indeterminateTint="@color/colorWhite"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding_separuh"
-                    android:id="@+id/p_login"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-            </RelativeLayout>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/padding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <TextView
-                android:fontFamily="@font/lato"
-                android:textColor="@color/colorBlackTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Belum punya akun Akuntansiku? Silahkan daftar"/>
-            <Button
-                android:id="@+id/l_register"
-                android:layout_marginTop="@dimen/padding_separuh"
-                android:elevation="0dp"
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_triple"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/lato"
+                        android:textColor="@color/colorBlackTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Password"/>
+                    <EditText
+                        android:inputType="textPassword"
+                        android:id="@+id/t_password"
+                        android:fontFamily="@font/lato"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:elevation="0dp"
+                            android:id="@+id/button_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="LOGIN"
+                            app:fontFamily="@font/montserrat_bold"
+                            android:textColor="@color/colorWhite"
+                            android:background="@drawable/button_primary_akuntansiku"/>
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:visibility="gone"
+                        android:indeterminateTint="@color/colorWhite"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding_separuh"
+                        android:id="@+id/p_login"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Daftar"
-                app:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/button_primary_akuntansiku"/>
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:fontFamily="@font/lato"
+                    android:textColor="@color/colorBlackTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Belum punya akun Akuntansiku? Silahkan daftar"/>
+                <Button
+                    android:id="@+id/l_register"
+                    android:layout_marginTop="@dimen/padding_separuh"
+                    android:elevation="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Daftar"
+                    app:fontFamily="@font/montserrat_bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_primary_akuntansiku"/>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/l_welcome"
             android:padding="@dimen/padding"
             android:layout_width="match_parent"
