@@ -168,7 +168,7 @@ public class Akuntansiku {
     public static void deleteTransaction(Activity context, String code){
         if (!checkInitialize(context)) return;
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
-        modelTransactionPending.create(code, Helper.getPreference(context).getAKUNTANSIKU_USER_EMAIL(), ConfigAkuntansiku.AKUNTANSIKU_DELETE, "[]");
+        modelTransactionPending.create(code, Helper.getPreference(context).getAKUNTANSIKU_USER_EMAIL(), ConfigAkuntansiku.AKUNTANSIKU_DELETE, "{}");
         resendData(context, null);
     }
 
@@ -176,22 +176,6 @@ public class Akuntansiku {
         public void onCallback(boolean success);
     }
 
-    public static void deteleTransaction(Activity activity, String code, final DeleteTransactionListener listener) {
-        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(activity).transaction_delete(code);
-        RetrofitSend.sendData(activity, true, call, new RetrofitSend.RetrofitSendListener() {
-            @Override
-            public void onSuccess(JSONObject data) throws JSONException {
-                if (listener != null)
-                    listener.onCallback(true);
-            }
-
-            @Override
-            public void onError(ApiResponse.Meta meta) {
-                if (listener != null)
-                    listener.onCallback(false);
-            }
-        });
-    }
 
     public interface ResendTransactionListener {
         public void onCallback(boolean success);
