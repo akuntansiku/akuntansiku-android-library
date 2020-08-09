@@ -195,7 +195,6 @@
                         android:orientation="vertical">
                         <include layout="@layout/akuntansiku_item_journal"/>
                         <LinearLayout
-                            android:layout_marginBottom="@dimen/padding"
                             android:orientation="vertical"
                             android:id="@+id/l_journal"
                             android:layout_width="match_parent"

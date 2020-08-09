@@ -147,6 +147,8 @@ public class TransactionDetail extends AppCompatActivity {
             TextView t_quantity = layout.findViewById(R.id.t_quantity);
             TextView t_subtotal = layout.findViewById(R.id.t_subtotal);
             t_name.setText(dataProduct.getName());
+            t_quantity.setText(dataProduct.getQuantity() + " Barang");
+            t_subtotal.setText(CurrencyFormater.cur(this, dataProduct.getSubtotal()));
             l_product.addView(layout);
 
         }

@@ -6,13 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import id.co.akuntansiku.R;
+import id.co.akuntansiku.accounting.account.Account;
 import id.co.akuntansiku.accounting.account.adapter.AccountSpinner;
 import id.co.akuntansiku.accounting.account.model.DataAccount;
 import id.co.akuntansiku.accounting.account.model.DataCategory;
@@ -160,6 +165,13 @@ public class Akuntansiku {
         resendData(context, null);
     }
 
+    public static void deleteTransaction(Activity context, String code){
+        if (!checkInitialize(context)) return;
+        ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
+        modelTransactionPending.create(code, Helper.getPreference(context).getAKUNTANSIKU_USER_EMAIL(), ConfigAkuntansiku.AKUNTANSIKU_DELETE, null);
+        resendData(context, null);
+    }
+
     public interface DeleteTransactionListener {
         public void onCallback(boolean success);
     }
@@ -263,6 +275,25 @@ public class Akuntansiku {
             ModelAccount modelAccount = new ModelAccount(activity);
             return modelAccount.getByCategory(id_category);
         }
+    }
+
+    public static void getAccountFromCloud(final Activity context){
+        if (!checkInitialize(context)) return;
+        retrofit2.Call<ApiResponse> call = RetrofitSend.Service(context).account_get_all();
+        RetrofitSend.sendData(context, true, call, new RetrofitSend.RetrofitSendListener() {
+            @Override
+            public void onSuccess(JSONObject data) throws JSONException {
+                Gson gson = new Gson();
+                ArrayList<DataAccount> dataAccounts = gson.fromJson(data.getString("account"), new TypeToken<List<DataAccount>>() {
+                }.getType());
+                ModelAccount modelAccount = new ModelAccount(context);
+                modelAccount.createAll(dataAccounts);
+            }
+            @Override
+            public void onError(ApiResponse.Meta meta) {
+
+            }
+        });
     }
 
     public static boolean checkInitialize(Activity activity) {
