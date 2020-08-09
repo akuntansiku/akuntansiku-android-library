@@ -168,7 +168,7 @@ public class Akuntansiku {
     public static void deleteTransaction(Activity context, String code){
         if (!checkInitialize(context)) return;
         ModelTransactionPending modelTransactionPending = new ModelTransactionPending(context);
-        modelTransactionPending.create(code, Helper.getPreference(context).getAKUNTANSIKU_USER_EMAIL(), ConfigAkuntansiku.AKUNTANSIKU_DELETE, null);
+        modelTransactionPending.create(code, Helper.getPreference(context).getAKUNTANSIKU_USER_EMAIL(), ConfigAkuntansiku.AKUNTANSIKU_DELETE, "[]");
         resendData(context, null);
     }
 
