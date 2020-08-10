@@ -79,7 +79,12 @@ public class ModelTransactionPending extends SQLiteOpenHelper {
         db.close();
 
         ModelActivityLog modelActivityLog = new ModelActivityLog(context);
-        modelActivityLog.create(code, user_email, status, "Add Transaction", data_transaction);
+        if (status == 1)
+            modelActivityLog.create(code, user_email, status, "Add Transaction", data_transaction);
+        if (status == 2)
+            modelActivityLog.create(code, user_email, status, "Update Transaction", data_transaction);
+        if (status == 3)
+            modelActivityLog.create(code, user_email, status, "Delete Transaction", data_transaction);
     }
 
     public ArrayList<DataTransactionPending> all() {

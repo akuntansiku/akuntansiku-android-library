@@ -38,7 +38,7 @@ public class ModelAllTable extends SQLiteOpenHelper {
                 "description text);");
 
         db.execSQL("create table if not exists " + "activity_log" + " (" +
-                "code varchar(225) primary key, " +
+                "code varchar(225), " +
                 "user_email varchar(225), " +
                 "status integer, " +
                 "note text, " +

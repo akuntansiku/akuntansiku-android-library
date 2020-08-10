@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAccount(){
-        ArrayList<DataAccount> data = Akuntansiku.Account.byCategory(this, 1);
+        ArrayList<DataAccount> data = Akuntansiku.Account.byCategories(this,new int[] {1,2});
 
         Spinner spinner_account = findViewById(R.id.s_account);
         spinner_account.setAdapter(Akuntansiku.Account.accountSpinner(this, data));

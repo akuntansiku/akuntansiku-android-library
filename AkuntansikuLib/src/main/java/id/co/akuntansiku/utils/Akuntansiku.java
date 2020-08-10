@@ -259,6 +259,16 @@ public class Akuntansiku {
             ModelAccount modelAccount = new ModelAccount(activity);
             return modelAccount.getByCategory(id_category);
         }
+
+        public static ArrayList<DataAccount> byCategories(Activity activity, int[] categories) {
+            if (!checkInitialize(activity)) return new ArrayList<>();
+            ArrayList<DataAccount> dataAccounts = new ArrayList<>();
+            ModelAccount modelAccount = new ModelAccount(activity);
+            for (int i = 0; i < categories.length; i++){
+                dataAccounts.addAll(modelAccount.getByCategory(categories[i]));
+            }
+            return dataAccounts;
+        }
     }
 
     public static void getAccountFromCloud(final Activity context){
