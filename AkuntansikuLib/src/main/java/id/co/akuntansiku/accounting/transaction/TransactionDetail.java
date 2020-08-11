@@ -73,7 +73,9 @@ public class TransactionDetail extends AppCompatActivity {
 
         if (extras != null) {
             String code = extras.getString("code");
+            String transaction_mode = extras.getString("transaction_mode");
             get_transaction_detail(code);
+            t_transaction_mode.setText(transaction_mode);
         }
 
         b_delete.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +162,6 @@ public class TransactionDetail extends AppCompatActivity {
     }
 
     private void set_text(){
-        t_transaction_mode.setText("mode " + dataTransaction.getMode());
         t_date.setText(Helper.dateConverter(dataTransaction.getCreated_at()));
         t_note.setText(dataTransaction.getNote());
         t_due_date.setText(dataTransaction.getDue_date());

@@ -145,6 +145,7 @@ public class AccountingActivity extends AppCompatActivity {
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(AccountingActivity.this, TransactionDetail.class);
                         intent.putExtra("code", dataTransactions.get(position).getCode());
+                        intent.putExtra("transaction_mode", transactionMode[dataTransactions.get(position).getMode() + 1]);
                         startActivityForResult(intent, DETAIL_TRANSACTION);
                     }
                 });
