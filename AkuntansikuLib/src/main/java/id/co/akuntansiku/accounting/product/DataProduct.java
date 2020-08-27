@@ -5,6 +5,7 @@ public class DataProduct {
     String name;
     String category;
     double quantity;
+    double price;
     double discount;
     double weight;
     String unit;
@@ -12,17 +13,26 @@ public class DataProduct {
     double subtotal;
     int type;
 
-    public DataProduct(String code, String name, String category, double quantity, double discount, double weight, String unit, String note, double subtotal, int type) {
+    public DataProduct(String code, String name, String category, double quantity, double price, double discount, double weight, String unit, String note, double subtotal, int type) {
         this.code = code;
         this.name = name;
         this.category = category;
         this.quantity = quantity;
+        this.price = price;
         this.discount = discount;
         this.weight = weight;
         this.unit = unit;
         this.note = note;
         this.subtotal = subtotal;
         this.type = type;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getCode() {
