@@ -123,6 +123,7 @@ public class Akuntansiku {
                     product.put("name", dataProducts.get(i).getName());
                     product.put("category", dataProducts.get(i).getCategory());
                     product.put("quantity", dataProducts.get(i).getQuantity());
+                    product.put("price", dataProducts.get(i).getPrice());
                     product.put("discount", dataProducts.get(i).getDiscount());
                     product.put("weight", dataProducts.get(i).getWeight());
                     product.put("unit", dataProducts.get(i).getUnit());
